@@ -1,0 +1,46 @@
+:root{
+    --primary-color: #0E294C;
+    --bg-color: #BEBEBE;
+    --login-color: #878787;
+    --font-color: #ffffff;
+}
+.cabecalho {
+    background-color: var(--primary-color);
+}
+.titulo {
+    color: var(--font-color);
+}
+.login {
+    border-radius: 15px;
+    border:#0E294C solid;
+    background-color: var(--login-color);
+}
+.logo-IMT {
+    width: 100px;
+}
+.user-icon {
+    width: 70px;
+}
+.login-ra {
+    border-radius: 8px;
+}
+.login-senha {
+    border-radius: 8px;
+}
+.login-botao {
+    background-color: #0E294C;
+    color: var(--font-color);
+}
+.login-botao:hover {
+    background-color: rgb(130, 217, 184);
+    border: white solid;
+}
+.login-ra, .login-senha {
+    border-radius: 8px;
+}
+.login-ra, .login-senha::placeholder {
+    text-align: center;
+}
+.login-ra:hover, .login-senha:hover {
+    border:#3262a1 solid;
+}
