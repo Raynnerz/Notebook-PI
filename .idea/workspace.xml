@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="be37b251-ca43-4479-bd4d-f0ae5ec0bb9b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../aprendendo_flask/app.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../aprendendo_flask/templates/login_page.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../aprendendo_flask/templates/welcome.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/icon/favicon-IMT.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/imt-logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/user.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/github-PI3/Notebook-preview.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" />
+    <list default="true" id="be37b251-ca43-4479-bd4d-f0ae5ec0bb9b" name="Changes" comment="reestruturação geral">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +55,18 @@
       <option name="presentableId" value="Default" />
       <updated>1680443688011</updated>
     </task>
+    <task id="LOCAL-00001" summary="reestruturação geral">
+      <created>1680455089280</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1680455089280</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="reestruturação geral" />
+    <option name="LAST_COMMIT_MESSAGE" value="reestruturação geral" />
   </component>
 </project>
