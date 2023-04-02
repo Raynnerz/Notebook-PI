@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="be37b251-ca43-4479-bd4d-f0ae5ec0bb9b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../aprendendo_flask/app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../aprendendo_flask/templates/login_page.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../aprendendo_flask/templates/welcome.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/icon/favicon-IMT.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/imt-logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/user.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/github-PI3/Notebook-preview.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2NsD1xu2nF0xLJL3ipJ6IYNUuQD" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/home/briqz/Documents/GitHub/Notebook-PI"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="be37b251-ca43-4479-bd4d-f0ae5ec0bb9b" name="Changes" comment="" />
+      <created>1680443688011</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1680443688011</updated>
+    </task>
+    <servers />
+  </component>
+</project>

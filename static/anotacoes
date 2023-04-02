@@ -1,0 +1,6 @@
+For example, the controller could communicate directly with a database
+ (like MySQL, SQLite, PostgreSQL, MongoDB, etc.) to obtain the requested
+ data and return a response, via the views, with the appropriate data in the
+ appropriate format (like HTML or JSON). Or perhaps the end user’s request is for a
+  resource that does not exist - in which case the controller will respond with a 404 error.
+
