@@ -8,7 +8,7 @@
 @jaoVassalo
 @Raynnerz
 
-## Instalação
+## Instalação:
 
 Utilize esses comandos para rodar o projeto da melhor forma!
 ### Instalação de venv
