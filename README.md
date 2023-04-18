@@ -7,6 +7,7 @@
 ## Criadores:
 @felipe7789
 @Briqz23
+@leo-gc
 @jaoVassalo
 @Raynnerz
 
