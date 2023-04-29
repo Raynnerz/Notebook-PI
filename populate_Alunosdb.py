@@ -1,5 +1,4 @@
 import csv
-import random
 
 with open('lista_alunos_original.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
@@ -22,7 +21,7 @@ for element in lista_ra:
 for j in lista_ra_n:
     j = str(j)
     lista_ra_n_invertida.append(j[::-1])
-print(lista_ra_n_invertida)
 
 tupla_alunos = [(a, b, c) for (a, b), c in zip(lista_geral, lista_ra_n_invertida)]
 print(tupla_alunos)
+print(type(tupla_alunos))
