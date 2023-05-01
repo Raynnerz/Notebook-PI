@@ -1,29 +1,47 @@
-# import the Flask class from the flask module
-from flask import Flask, render_template, redirect, url_for, request
+import sqlite3
+from flask import Flask, render_template, redirect, url_for, request, session
 
-# create the application object
 app = Flask(__name__)
 
-
-# use decorators to link the function to a url
 @app.route('/welcome')
 def welcome():
-    return render_template('welcome.html')  # render a template
-''
+    return render_template('welcome.html')
 
-
-
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    error = None
     if request.method == 'POST':
-        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
-            error = 'Invalid Credentials. Please try again.'
+        username = request.form['ra']
+        password = request.form['senha']
+
+        conn = sqlite3.connect('DB_notebooks.db')
+        cursor = conn.cursor()
+
+        query = "SELECT * FROM Aluno WHERE ra = ? AND senha = ?"
+        cursor.execute(query, (username, password))
+        user = cursor.fetchone()
+
+        if user:
+            session['user_id'] = user[0]
+            conn.close()
+            return redirect(url_for('welcome'))
         else:
-            return redirect(url_for('home'))
-    return render_template('login_page.html', error=error)
+            conn.close()
+            error = 'Invalid username or password'
+            return render_template('login_page.html', error=error)
+    else:
+        return render_template('login_page.html')
 
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    return redirect(url_for('login'))
 
-# start the server with the 'run()' method
+@app.route('/')
+def index():
+    if 'user_id' in session:
+        return redirect(url_for('welcome'))
+    else:
+        return redirect(url_for('login'))
+
 if __name__ == '__main__':
     app.run(debug=True)
