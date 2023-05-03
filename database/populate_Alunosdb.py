@@ -25,4 +25,4 @@ for element in lista_ra:
         lista_ra_n.append(int(numeric_chars))
 
 tupla_alunos = [(a, b, c) for (a, b), c in zip(lista_geral, lista_ra_n)]
-print(tupla_alunos)
+
