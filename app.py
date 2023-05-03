@@ -13,7 +13,7 @@ def login():
         username = request.form['ra']
         password = request.form['senha']
 
-        conn = sqlite3.connect('DB_notebooks.db')
+        conn = sqlite3.connect('database/DB_notebooks.db')
         cursor = conn.cursor()
 
         query = "SELECT * FROM Aluno WHERE ra = ? AND senha = ?"

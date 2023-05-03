@@ -33,8 +33,6 @@ cur.execute("CREATE TABLE Funcionario (idFuncionario INTEGER NOT NULL PRIMARY KE
 cur.executemany("insert into Aluno values (?, ?, ?)", tupla_alunos)
 
 con.commit()
-#Checar DB:
-
 cur.execute("SELECT * from Aluno")
 
 rows = cur.fetchall()
