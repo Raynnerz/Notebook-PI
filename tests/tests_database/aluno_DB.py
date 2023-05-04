@@ -50,7 +50,7 @@ def test_insert_alunos():
                 "nome TEXT,"
                 "senha TEXT)")
 
-    tupla_alunos_mock = [('12224843', 'Daniel Briquez', '123456'), ('22002100', 'Joao Martins', '87654321')]
+    tupla_alunos_mock = [('12224843', 'Walter White', '123456'), ('22002100', 'Jessie Pinkman', '87654321')]
     cur.executemany("insert into Aluno values (?, ?, ?)", tupla_alunos_mock)
 
     cur.execute("SELECT COUNT(*) from Aluno")
