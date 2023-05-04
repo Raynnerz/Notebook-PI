@@ -2,7 +2,7 @@ import sqlite3
 from flask import Flask, render_template, redirect, url_for, request, session
 
 app = Flask(__name__)
-
+app.secret_key = 'your_secret_key'
 @app.route('/welcome')
 def welcome():
     return render_template('welcome.html')
