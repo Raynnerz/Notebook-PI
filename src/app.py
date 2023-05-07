@@ -27,9 +27,9 @@ def login():
         else:
             conn.close()
             error = 'Invalid username or password'
-            return render_template('login_page.html', error=error)
+            return render_template('tela_login.html', error=error)
     else:
-        return render_template('login_page.html')
+        return render_template('tela_login.html')
 
 @app.route('/logout')
 def logout():
@@ -44,4 +44,4 @@ def index():
         return redirect(url_for('login'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8000)

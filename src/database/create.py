@@ -1,5 +1,5 @@
 import sqlite3
-from populate_Alunosdb import tupla_alunos
+from populate_student_schema import tupla_alunos
 
 
 #cur é cursor e con é connection
