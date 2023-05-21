@@ -22,10 +22,12 @@ cur.execute("CREATE TABLE Notebook (idNotebook INTEGER NOT NULL PRIMARY KEY, blo
 cur.execute("CREATE TABLE AlunoNotebook("
             "idAlunoNotebook INTEGER NOT NULL PRIMARY KEY, "
             "ra INTEGER NOT NULL, "
-            " idNotebook INTEGER NOT NULL, "
-            "dataRetirada TEXT,"
-            "dataDevolucao TEXT,"
-            "FOREIGN KEY(ra) REFERENCES Alunos(ra),"
+            "idNotebook INTEGER NOT NULL, "
+            "bloco CHARACTER(1) NOT NULL, "
+            "dataRetirada TEXT, "
+            "dataDevolucao TEXT, "
+            "request BOOLEAN NOT NULL, "
+            "FOREIGN KEY(ra) REFERENCES Alunos(ra), "
             "FOREIGN KEY(idNotebook) REFERENCES Notebook(idNotebook))")
 
 cur.execute("CREATE TABLE Funcionario (idFuncionario INTEGER NOT NULL PRIMARY KEY, nome TEXT, senha TEXT)")
