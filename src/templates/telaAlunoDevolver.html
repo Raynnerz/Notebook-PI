@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Devolver Notebook</title>
+    <style>
+        .container {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Devolver Notebook</h1>
+        <button class="button" onclick="updateRequests()">Devolver</button>
+    </div>
+
+<script>
+    function updateRequests() {
+        $.ajax({
+            url: '/update_request_devolver',
+            method: 'POST',
+            success: function(response) {
+                console.log('Requests updated successfully');
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

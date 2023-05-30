@@ -1,7 +1,7 @@
 import csv
 import random
 
-with open('students_list.csv', 'r') as csvfile:
+with open('src/database/students_list.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
     lista_geral=[]
     for row in reader:
