@@ -21,16 +21,38 @@ def home_funcionario():
     return render_template('telaListaAutentFuncionario.html')
 
 
-@app.route('/tela_aluno_devolver')
+@app.route('/update_requests_devolver')
 def tela_aluno_devolver():
-    return render_template('telaAlunoDevolver.html')
+    return render_template('telaAlunoDevolver.html', username=session['user_id'])
+
+
+
+@app.route('/update_requests_devolver', methods=['POST'])
+def update_requests_devolver():
+    if 'user_id' in session:
+
+        username = session['user_id']
+
+        conn = sqlite3.connect('src/database/DB_notebooks.db')
+        cursor = conn.cursor()
+        
+        query= ("UPDATE AlunoNotebook SET request = 1 WHERE ra = ?")
+        cursor.execute(query, (username,))
+        conn.commit()
+
+        conn.close()
+
+        return "Request updated successfully"
+    else:
+        return "Unauthorized access"
+    
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['ra']
         password = request.form['senha']
-
+        session['user_id'] = username
         conn = sqlite3.connect('src/database/DB_notebooks.db')
         cursor = conn.cursor()
 
@@ -117,24 +139,6 @@ def get_pendencies():
 
     return jsonify(requests)
 
-@app.route('/update_requests_devolver', methods=['GET'])
-def update_requests_devolver():
-    if 'user_id' in session:
-        username = session['user_id']
-
-        conn = sqlite3.connect('src/database/DB_notebooks.db')
-        cursor = conn.cursor()
-
-        query = "UPDATE AlunoNotebook SET request = 1 WHERE ra = ?"
-        cursor.execute(query, (username,))
-        conn.commit()
-
-        conn.close()
-
-        return redirect(url_for('tela_aluno_devolver'))
-    else:
-        return redirect(url_for('login'))
-
 #aba pedidos
 @app.route('/get_requests_admin', methods=['GET'])
 def get_requests_admin():
@@ -145,7 +149,6 @@ def get_requests_admin():
     cursor.execute(query)
 
     requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
-
     conn.close()
 
     return jsonify(requests)

@@ -7,7 +7,7 @@ con = sqlite3.connect("src/database/DB_notebooks.db")
 cur = con.cursor()
 
 #cur.execute("DROP TABLE Aluno");
-#cur.execute("DROP TABLE AlunoNotebook");
+cur.execute("DROP TABLE AlunoNotebook");
 #cur.execute("DROP TABLE Notebook");
 #cur.execute("DROP TABLE Funcionario");
 

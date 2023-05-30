@@ -1,46 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Devolver Notebook</title>
-    <style>
-        .container {
-            margin-top: 50px;
-            text-align: center;
-        }
-
-        .button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
+    <title>botao devolver</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#myButton").click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: "/update_requests_devolver",
+                   
+                    success: function() {
+                        alert("Attribute changed!");
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
-    <div class="container">
-        <h1>Devolver Notebook</h1>
-        <button class="button" onclick="updateRequests()">Devolver</button>
-    </div>
-
-<script>
-    function updateRequests() {
-        $.ajax({
-            url: '/update_request_devolver',
-            method: 'POST',
-            success: function(response) {
-                console.log('Requests updated successfully');
-            },
-            error: function(xhr, status, error) {
-                console.log('Error:', error);
-            }
-        });
-    }
-</script>
-
+    <button id="myButton">Change Attribute {{ username }} </button>
 </body>
 </html>
