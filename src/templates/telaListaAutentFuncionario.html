@@ -47,10 +47,10 @@
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-var intervalId; // Variable to store the interval ID
+var intervalId; 
 
 function fetchRequests() {
-    clearInterval(intervalId); // Clear the interval when the button is clicked
+    clearInterval(intervalId); 
     
     $.ajax({
         url: '/get_requests_admin',
@@ -65,7 +65,7 @@ function fetchRequests() {
     });
 }
 function fetchHistorico() {
-    clearInterval(intervalId); // Clear the interval when the button is clicked
+    clearInterval(intervalId); 
     
     $.ajax({
         url: '/get_historico_admin',
@@ -81,7 +81,7 @@ function fetchHistorico() {
 }
 
 function fetchApprovedRequests() {
-    clearInterval(intervalId); // Clear the interval when the button is clicked
+    clearInterval(intervalId); 
     
     $.ajax({
         url: '/get_pendencies',
@@ -102,7 +102,7 @@ function startFetching() {
     }, 1000);
 }
 
-// Attach click event listeners to the buttons
+
 $('#requestsButton').on('click', function() {
     fetchRequests();
     startFetching();
@@ -110,15 +110,15 @@ $('#requestsButton').on('click', function() {
 
 $('#approvedRequestsButton').on('click', function() {
     fetchApprovedRequests();
-    clearInterval(intervalId); // Clear the interval when the button is clicked
+    clearInterval(intervalId); 
 });
 
 $('#HistoricoButton').on('click', function() {
     fetchHistorico();
-    clearInterval(intervalId); // Clear the interval when the button is clicked
+    clearInterval(intervalId); 
 });
 
-// Initialize the default view
+
 fetchRequests();
 startFetching();
 

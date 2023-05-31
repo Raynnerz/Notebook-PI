@@ -172,43 +172,8 @@ def get_historico_admin():
     conn.close()
 
     return jsonify(requests)
+
 #inserir info no BD com data
-
-""" 
-@app.route('/update_request', methods=['POST'])
-def update_request():
-    request_id = request.form.get('requestId')
-
-    conn = sqlite3.connect('src/database/DB_notebooks.db')
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT * FROM AlunoNotebook WHERE idAlunoNotebook = ?", (request_id,))
-    row = cursor.fetchone()
-
-    if row:
-        status = [6]
-        data_retirada = row[4]
-        data_devolucao = row[5]
-
-    if status == '0':
-        if data_retirada != None and data_devolucao == None: 
-            current_time = int(time.time())  
-            query = "UPDATE AlunoNotebook SET request = 0, DataRetirada = ? WHERE idAlunoNotebook = ?"
-            cursor.execute(query, (current_time, request_id))
-            conn.commit()
-            conn.close()
-        elif data_retirada!= None and data_devolucao != None:
-            current_time = int(time.time())  
-            query = "UPDATE AlunoNotebook SET request = 0, DataDevolucao = ? WHERE idAlunoNotebook = ?"
-            cursor.execute(query, (current_time, request_id))
-            conn.commit()
-            conn.close()
-
-
-
-    return 'Request updated successfully'
-"""
-
 @app.route('/update_request', methods=['POST'])
 def update_request():
     request_id = request.form.get('requestId')
