@@ -43,7 +43,7 @@
     
     <button onclick="fetchApprovedRequests()">Pendências</button>
     <button onclick="fetchRequests()">Pedidos</button>
-    <button onclick="fetchHistory()">Histórico</button>
+    <button onclick="fetchHistorico()">Histórico</button>
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -54,6 +54,21 @@ function fetchRequests() {
     
     $.ajax({
         url: '/get_requests_admin',
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            displayRequests(response);
+        },
+        error: function(xhr, status, error) {
+            console.log('Error:', error);
+        }
+    });
+}
+function fetchHistorico() {
+    clearInterval(intervalId); // Clear the interval when the button is clicked
+    
+    $.ajax({
+        url: '/get_historico_admin',
         method: 'GET',
         dataType: 'json',
         success: function(response) {
@@ -95,6 +110,11 @@ $('#requestsButton').on('click', function() {
 
 $('#approvedRequestsButton').on('click', function() {
     fetchApprovedRequests();
+    clearInterval(intervalId); // Clear the interval when the button is clicked
+});
+
+$('#HistoricoButton').on('click', function() {
+    fetchHistorico();
     clearInterval(intervalId); // Clear the interval when the button is clicked
 });
 
@@ -144,9 +164,26 @@ startFetching();
             }
         }
         
-        function updateRequest(requestId, status) {
+        function updateRequest(requestId, status, data_retirada, data_devolucao) {
         $.ajax({
             url: '/update_request',
+            method: 'POST',
+            data: {
+                requestId: requestId,
+                status: status
+            },
+            success: function(response) {
+                console.log('Request updated successfully');
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+
+    function updateHistorico(requestId, status, data_retirada, data_devolucao) {
+        $.ajax({
+            url: '/get_historico_admin',
             method: 'POST',
             data: {
                 requestId: requestId,
