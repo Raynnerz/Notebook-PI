@@ -17,7 +17,7 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap"
             rel="stylesheet">
-            <link rel="stylesheet" href="estilos1.css">
+            <link rel="stylesheet" href="../static/css/estilos1.css">
         <title>Seleção de Aluno/Adm</title>
         <style>
             .corBorda{
@@ -56,7 +56,7 @@
             <nav class="container-fluid amaua">
                 <section class="row align-items-center">
                     <div class="col-2 m-2">
-                        <img src="imagens/comp.png" alt="" width="60px">
+                        <img src="../static/images/comp.png" alt="" width="60px">
                     </div>
                     <div class=" text-white p-3 roboto tamanho14 col">
                         <div class="ms-2">
@@ -73,21 +73,27 @@
                         Login
                     </div>
                 </div>
-                <section class="card-text">
-                    <div class="d-flex justify-content-center distInp">
-                        <input type="text" placeholder="RA" class="border-top-0 border-end-0 border-start-0 corBorda tamanho16 pe-5">
+                <form action="" method="post">
+                    <div class="row justify-content-center">
+
+                        <input class="login-ra col-md-4 col-sm-12 m-2 mt-4" type="text" placeholder="insira seu R.A"
+                               name="ra" value="{{
+          request.form.ra }}">
+
+
                     </div>
-                        <div class="d-flex justify-content-center">
-                            <input type="text" placeholder="Senha" class="border-top-0 border-end-0 border-start-0 corBorda tamanho16 pe-5">
-                        </div>
-                    <div class="d-flex justify-content-center">
-                        <button
-                            type="button"
-                            class="btn verdeBot sombras rounded-pill px-5 tamanho16 roboto  distInpXBut">
-                            <a href="#" class="text-decoration-none text-white text-center ">Entrar</a>
-                        </button>
+                    <div class="row justify-content-center">
+                                <input class="login-senha col-md-4 col-sm-12 m-2 mb-3" type="password" placeholder="insira sua senha" name="senha" value="{{
+          request.form.senha}}">
                     </div>
-                </section>
+                    <div class="row justify-content-center">
+                                <input class="btn btn-default login-botao col-md-2 col-8 m-2 my-2 btn" type="submit" value="Login">
+
+                    </div>
+                </form>
+                    {% if error %}
+    <p class="error"><strong>Error:</strong> {{ error }}
+        {% endif %}
             </article>
         </main>
     </section>
@@ -96,7 +102,7 @@
     <section class="container-fluid p-0">
         <div class="amaua">
             <div class="d-flex justify-content-end">
-                <div class="m-2"><img src="imagens/imt-logo.png" alt="" width="60px"></div>
+                <div class="m-2"><img src="../static/images/imt-logo.png" alt="" width="60px"></div>
             </div>
         </div>
     </section>
