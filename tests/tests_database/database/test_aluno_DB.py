@@ -24,11 +24,13 @@ def test_create_tables():
 
     cur.execute("CREATE TABLE AlunoNotebook("
                 "idAlunoNotebook INTEGER NOT NULL PRIMARY KEY, "
-                "ra INTEGER NOT NULL, "
+                "ra TEXT NOT NULL, "
                 "idNotebook INTEGER NOT NULL, "
-                "dataRetirada TEXT,"
-                "dataDevolucao TEXT,"
-                "FOREIGN KEY(ra) REFERENCES Aluno(ra),"
+                "bloco CHARACTER(1) NOT NULL, "
+                "dataRetirada TEXT, "
+                "dataDevolucao TEXT, "
+                "request BOOLEAN NOT NULL, "
+                "FOREIGN KEY(ra) REFERENCES Alunos(ra), "
                 "FOREIGN KEY(idNotebook) REFERENCES Notebook(idNotebook))")
 
     cur.execute("CREATE TABLE Funcionario (idFuncionario INTEGER NOT NULL PRIMARY KEY, nome TEXT, senha TEXT)")
@@ -61,3 +63,6 @@ def test_insert_alunos():
     con.close()
     test_clean_tables()
 
+test_clean_tables()
+test_create_tables()
+test_insert_alunos()

@@ -1,4 +1,5 @@
 import sqlite3
+import bcrypt
 from flask import Flask, jsonify, render_template, redirect, url_for, request, session
 import time
 app = Flask(__name__)
@@ -62,11 +63,11 @@ def login():
         conn = sqlite3.connect('src/database/DB_notebooks.db')
         cursor = conn.cursor()
 
-        query_aluno = "SELECT * FROM Aluno WHERE ra = ? AND senha = ?"
-        cursor.execute(query_aluno, (username, password))
+        query_aluno = "SELECT * FROM Aluno WHERE ra = ?"
+        cursor.execute(query_aluno, (username,))
         aluno = cursor.fetchone()
 
-        if aluno:
+        if aluno and bcrypt.hashpw(password.encode('utf-8'), aluno[2].encode('utf-8')) == aluno[2].encode('utf-8'):
             session['user_id'] = aluno[0]
             conn.close()
             return redirect(url_for('home_aluno'))
@@ -96,10 +97,7 @@ def logout():
 
 @app.route('/')
 def index():
-    if 'user_id' in session:
-        return redirect(url_for('login'))
-    else:
-        return render_template('welcome.html')
+    return redirect(url_for('login'))
 
 
 @app.route('/aluno_notebook', methods=['POST'])
