@@ -1,30 +1,93 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
 .bio {
     width: 100%;
     height: 55.28vh;
     background-color: #fff;
     background-image: -webkit-linear-gradient(117.5deg, #CFCFCF 50%, #004587 50%);
 }
+
 .roboto {
     font-family: 'Roboto', sans-serif;
 }
+
 .tamanho14 {
-    font-size: 14px;
+    font-size: 2vh;
 }
+
 .tamanho16 {
     font-size: 16px;
     font-weight: 400;
 }
+
+.tamanho16Resp {
+    font-size: 2.5vh;
+    font-weight: 400;
+}
+
+.tamanho16_500 {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.tamanho16Resp_500 {
+    font-size: 2.5vh;
+    font-weight: 500;
+}
+
+.tamanho18_500 {
+    font-size: 18px;
+    font-weight: 500;
+}
+
 .tamanho24 {
     font-size: 24px;
     font-weight: 700;
 }
-.cinza {
-    background-color: #CFCFCF;
+
+.tamanho9 {
+    font-size: 1.8vh;
 }
+
+.cinza {
+    background-color: #d0d8df;
+}
+
 .amaua {
     background-color: #004587;
 }
+
 .verdeBot {
     background-color: #00DC58;
+}
+
+.verdeBot:hover {
+    background-color: #009b3e;
+    transition: all 0.5s ease-in;
+}
+
+.vermeBtn {
+    background-color: #dc0000;
+}
+
+.vermeBtn:hover {
+    background-color: #bb0101;
+    transition: all 0.5s ease-in;
+}
+textarea:focus{
+    border: 0 none;
+    outline: 0;
+}
+.cinzaEsc {
+    color: #808080;
+}
+.cinzaTextarea{
+    background-color:#D7D7D7 ;
+}
+.sel{
+    background-color:#009b3e;
+}
+
+footer {
+    margin-top: 19.9vh;
 }
