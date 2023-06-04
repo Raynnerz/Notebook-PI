@@ -1,0 +1,188 @@
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        .request-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .request-info {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .action-buttons {
+            margin-top: 10px;
+        }
+        
+        .approve-button,
+        .reject-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        
+        .reject-button {
+            background-color: #F44336;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function fetchRequests() {
+            $.ajax({
+                url: '/get_requests_admin',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    displayRequests(response);
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error:', error);
+                }
+            });
+        }
+
+        function fetchHistorico() {
+            $.ajax({
+                url: '/get_historico_admin',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    displayRequests(response);
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error:', error);
+                }
+            });
+        }
+
+        function fetchApprovedRequests() {
+            $.ajax({
+                url: '/get_pendencies',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    displayRequests(response);
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error:', error);
+                }
+            });
+        }
+
+        function displayRequests(requests) {
+            var container = $('#requestsContainer');
+            container.empty();
+            
+            if (requests && requests.length > 0) {
+                requests.forEach(function(request) {
+                    var requestBox = $('<div class="request-box"></div>');
+                    
+                    var requestInfo = $('<div class="request-info"></div>');
+                    requestInfo.text('Request ID: ' + request.idAlunoNotebook + ', Student: ' + request.ra + ', Notebook Number: ' + request.idNotebook);
+                    
+                    // Create action buttons
+                    var actionButtons = $('<div class="action-buttons"></div>');
+                    var autenticarButton = $('<button class="approve-button">Autenticar</button>');
+                    var recusarButton = $('<button class="reject-button">Recusar</button>');
+                    
+                    autenticarButton.on('click', function() {
+                        updateRequest(request.idAlunoNotebook, '0'); 
+                    });
+                    
+                    recusarButton.on('click', function() {
+                        updateRequest(request.idAlunoNotebook, '2');  
+                    });
+                    
+                    actionButtons.append(autenticarButton);
+                    actionButtons.append(recusarButton);
+                    
+                    requestBox.append(requestInfo);
+                    requestBox.append(actionButtons);
+                    
+                    container.append(requestBox);
+                });
+            } else {
+                var noRequestsElement = $('<div></div>');
+                noRequestsElement.text('No requests found.');
+                
+                container.append(noRequestsElement);
+            }
+        }
+        
+        function updateRequest(requestId, status, data_retirada, data_devolucao) {
+            $.ajax({
+                url: '/update_request',
+                method: 'POST',
+                data: {
+                    requestId: requestId,
+                    status: status
+                },
+                success: function(response) {
+                    console.log('Request updated successfully');
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error:', error);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>AlunoNotebook Requests</h1>
+    <div id="requestsContainer"></div>
+    
+<button onclick="redirectTo('/telaListaAutentFuncionario_pendencias');">Pendências</button>
+<button onclick="redirectTo('/telaListaAutentFuncionario_pedidos');">Pedidos</button>
+<button onclick="redirectTo('/telaListaAutentFuncionario_historico');">Histórico</button>
+
+<script>
+    $(document).ready(function() {
+        // Load initial data
+        fetchRequests();
+    });
+
+    function redirectTo(url) {
+        setTimeout(function() {
+            window.location.href = url;
+        }, 100);
+    }
+
+    $(window).on('load', function() {
+        var currentUrl = window.location.pathname;
+        
+        if (currentUrl === '/telaListaAutentFuncionario_pendencias') {
+            setTimeout(function() {
+                fetchApprovedRequests();
+            }, 100);
+        } else if (currentUrl === '/telaListaAutentFuncionario_pedidos') {
+            setTimeout(function() {
+                fetchRequests();
+            }, 100);
+        } else if (currentUrl === '/telaListaAutentFuncionario_historico') {
+            setTimeout(function() {
+                fetchHistorico();
+            }, 100);
+        }
+    });
+
+
+
+    
+        $(document).ready(function() {
+            // Load initial data
+            fetchRequests();
+        });
+  
+</script>
+</body>
+</html>

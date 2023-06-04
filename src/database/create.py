@@ -31,7 +31,7 @@ cur.execute("CREATE TABLE AlunoNotebook("
             "bloco CHARACTER(1) NOT NULL, "
             "dataRetirada TEXT, "
             "dataDevolucao TEXT, "
-            "request BOOLEAN NOT NULL, "
+            "request INTEGER NOT NULL, "
             "FOREIGN KEY(ra) REFERENCES Alunos(ra), "
             "FOREIGN KEY(idNotebook) REFERENCES Notebook(idNotebook))")
 

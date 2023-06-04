@@ -2,25 +2,25 @@ import sqlite3
 import bcrypt
 from flask import Flask, jsonify, render_template, redirect, url_for, request, session
 import time
+
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
-
-
-@app.route('/welcome')
-def welcome():
-    return render_template('welcome.html')
-
-
+app.secret_key = 'your_secrete_key'
 
 @app.route('/home_aluno')
 def home_aluno():
     return render_template('telaInicialAluno.html')
 
+@app.route('/telaListaAutentFuncionario_pendencias')
+def telaListaAutentFuncionario_pendencias():
+    return render_template('telaListaAutentFuncionario_pendencias.html')
 
-@app.route('/home_funcionario')
-def home_funcionario():
-    return render_template('telaListaAutentFuncionario.html')
+@app.route('/telaListaAutentFuncionario_pedidos')
+def telaListaAutentFuncionario_pedidos():
+    return render_template('telaListaAutentFuncionario_pedidos.html')
 
+@app.route('/telaListaAutentFuncionario_historico')
+def telaListaAutentFuncionario_historico():
+    return render_template('telaListaAutentFuncionario_historico.html')
 
 @app.route('/update_requests_devolver')
 def tela_aluno_devolver():
@@ -35,13 +35,19 @@ def tela_aluno_devolver():
 
 @app.route('/update_requests_devolver', methods=['POST'])
 def update_requests_devolver():
+
     if 'user_id' in session:
-
+        
         username = session['user_id']
-
+        
         conn = sqlite3.connect('src/database/DB_notebooks.db')
         cursor = conn.cursor()
-        
+
+
+        cursor.execute("SELECT * FROM AlunoNotebook WHERE ra = ?", (username,))
+        row = cursor.fetchone()
+        print(row)
+    
         query= ("UPDATE AlunoNotebook SET request = 1 WHERE ra = ?")
         cursor.execute(query, (username,))
         conn.commit()
@@ -79,7 +85,7 @@ def login():
         if funcionario:
             session['user_id'] = funcionario[0]
             conn.close()
-            return redirect(url_for('home_funcionario'))
+            return redirect(url_for('telaListaAutentFuncionario_pedidos'))
 
         conn.close()
         error = 'Invalid username or password'
@@ -107,7 +113,7 @@ def aluno_notebook():
             username = session['user_id']
             notebook_number = request.form['notebook_number']
             bloco = request.form['bloco']
-            request_value = True
+            request_value = 1
             conn = sqlite3.connect('src/database/DB_notebooks.db')
             cursor = conn.cursor()
 
@@ -134,7 +140,7 @@ def get_pendencies():
     conn = sqlite3.connect('src/database/DB_notebooks.db')
     cursor = conn.cursor()
 
-    query = "SELECT * FROM AlunoNotebook WHERE DataRetirada IS NOT NULL AND request = 0"
+    query = "SELECT * FROM AlunoNotebook WHERE DataRetirada IS NULL AND request = 0"
     cursor.execute(query)
 
     requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
@@ -163,7 +169,7 @@ def get_historico_admin():
     conn = sqlite3.connect('src/database/DB_notebooks.db')
     cursor = conn.cursor()
 
-    query = "SELECT * FROM AlunoNotebook WHERE request = 1 AND DataDevolucao IS NOT NULL"
+    query = "SELECT * FROM AlunoNotebook WHERE request = 0 AND DataDevolucao IS NOT NULL"
     cursor.execute(query)
 
     requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
@@ -177,28 +183,50 @@ def update_request():
     request_id = request.form.get('requestId')
     status = request.form.get('status')
 
-    print(request_id, status)
     conn = sqlite3.connect('src/database/DB_notebooks.db')
     cursor = conn.cursor()
+    print(status)
 
     cursor.execute("SELECT * FROM AlunoNotebook WHERE idAlunoNotebook = ?", (request_id,))
     row = cursor.fetchone()
-
     if row:
         data_retirada = row[4]
         data_devolucao = row[5]
 
-        print(f'status: {status}\n ,data_devolucao: {data_devolucao}\n, data_retirada: {data_retirada}')
-        
-    if data_retirada == None:
-        current_time = int(time.time())   
-        query = "UPDATE AlunoNotebook SET request = ?, dataRetirada = ? WHERE idAlunoNotebook = ?"
-        cursor.execute(query, (status, current_time, request_id))
 
-    else: 
-        current_time = int(time.time())  
-        query = "UPDATE AlunoNotebook SET request = ?, dataDevolucao = ? WHERE idAlunoNotebook = ?"
-        cursor.execute(query, (status, current_time, request_id))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+    if row[6]==2:
+        query = "DELETE FROM AlunoNotebook WHERE request = ?"
+        cursor.execute(query, (status))
+    else:
+        print(f'status: {status}\n ,data_devolucao: {data_devolucao}\n, data_retirada: {data_retirada}')
+            
+        if data_retirada == None:
+            current_time = int(time.time())   
+            query = "UPDATE AlunoNotebook SET request = ?, dataRetirada = ? WHERE idAlunoNotebook = ?"
+            cursor.execute(query, (status, current_time, request_id))
+
+        else: 
+            current_time = int(time.time())  
+            query = "UPDATE AlunoNotebook SET request = ?, dataDevolucao = ? WHERE idAlunoNotebook = ?"
+            cursor.execute(query, (status, current_time, request_id))
 
 
     conn.commit()
