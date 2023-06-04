@@ -63,6 +63,7 @@ def test_insert_alunos():
     con.close()
     test_clean_tables()
 
+
 test_clean_tables()
 test_create_tables()
 test_insert_alunos()

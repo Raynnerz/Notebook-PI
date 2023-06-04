@@ -39,7 +39,7 @@ def update_requests_devolver():
     if 'user_id' in session:
         
         username = session['user_id']
-        print(username)
+        
         conn = sqlite3.connect('src/database/DB_notebooks.db')
         cursor = conn.cursor()
 
@@ -140,7 +140,7 @@ def get_pendencies():
     conn = sqlite3.connect('src/database/DB_notebooks.db')
     cursor = conn.cursor()
 
-    query = "SELECT * FROM AlunoNotebook WHERE DataRetirada IS NOT NULL AND request = 0"
+    query = "SELECT * FROM AlunoNotebook WHERE DataRetirada IS NULL AND request = 0"
     cursor.execute(query)
 
     requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
@@ -169,7 +169,7 @@ def get_historico_admin():
     conn = sqlite3.connect('src/database/DB_notebooks.db')
     cursor = conn.cursor()
 
-    query = "SELECT * FROM AlunoNotebook WHERE request = 1 AND DataDevolucao IS NOT NULL"
+    query = "SELECT * FROM AlunoNotebook WHERE request = 0 AND DataDevolucao IS NOT NULL"
     cursor.execute(query)
 
     requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
@@ -192,6 +192,25 @@ def update_request():
     if row:
         data_retirada = row[4]
         data_devolucao = row[5]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
 
     if row[6]==2:
         query = "DELETE FROM AlunoNotebook WHERE request = ?"

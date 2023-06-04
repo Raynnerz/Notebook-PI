@@ -1,114 +1,206 @@
-                <!DOCTYPE html>
-                <html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+            crossorigin="anonymous">
+        <meta http-equiv="X-UA-Compatible" content="IE=chorme">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin="crossorigin">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap"
+            rel="stylesheet">
+        <title>Tela Inicial 2-Aluno</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
-                <head>
-                    <meta charset="UTF-8">
-                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-                        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-                    <meta http-equiv="X-UA-Compatible" content="IE=chorme">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <link rel="preconnect" href="https://fonts.googleapis.com">
-                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin">
-                    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
-                    <link rel="stylesheet" href="src/static/css/estilos1.css">
-                    <title>Tela Devoluções-Funcionario</title>
-                    <style>
-                        .corBorda {
-                            border-color: #808080;
-                        }
+.bio {
+    width: 100%;
+    height: 55.28vh;
+    background-color: #fff;
+    background-image: -webkit-linear-gradient(117.5deg, #CFCFCF 50%, #004587 50%);
+}
 
-                        ::placeholder {
-                            font-size: 16px;
-                            font-weight: 400;
-                            font-family: 'Roboto', sans-serif;
-                        }
+.roboto {
+    font-family: 'Roboto', sans-serif;
+}
 
-                        .sombras {
-                            box-shadow: 0.1px;
-                            -webkit-box-shadow: 3px 3px 3px #b3b3b3;
-                        }
+.tamanho14 {
+    font-size: 2vh;
+}
 
-                        .sombrasTotal {
-                            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-                        }
+.tamanho16 {
+    font-size: 16px;
+    font-weight: 400;
+}
 
-                        .distCabCorp {
-                            margin-top: 20vh;
-                        }
+.tamanho16Resp {
+    font-size: 2.5vh;
+    font-weight: 400;
+}
 
-                        .distAlxTipo {
-                            margin-top: 10vh;
-                        }
+.tamanho16_500 {
+    font-size: 16px;
+    font-weight: 500;
+}
 
-                        .distInpXBut {
-                            margin-bottom: 6vh;
-                            margin-top: 1vh;
-                        }
+.tamanho16Resp_500 {
+    font-size: 2.5vh;
+    font-weight: 500;
+}
 
-                        .distInp {
-                            margin-top: 7vh;
-                            margin-bottom: 15vh;
-                        }
+.tamanho18_500 {
+    font-size: 18px;
+    font-weight: 500;
+}
 
-                        .tam {
-                            width: 65vh;
-                        }
+.tamanho24 {
+    font-size: 24px;
+    font-weight: 700;
+}
 
-                        .distFinal {
-                            margin-bottom: 10vh;
-                        }
-                    </style>
-                </head>
+.tamanho9 {
+    font-size: 1.8vh;
+}
 
-                <body class="cinza roboto">
-                    <section class="amaua">
-                        <nav class="container-fluid ">
-                            <section class="align-items-center d-flex flex-row">
-                                <div class="py-2">
-                                    <img src="imagens/comp.png" alt="" width="60px">
-                                </div>
-                                <div class=" text-white p-3 roboto tamanho14 col">
-                                    <div class="ms-2">
-                                        Mauá Notebooks
-                                    </div>
-                                </div>
-                            </section>
-                        </nav>
-                    </section>
-                    <section class="container-fluid">
-                        <div class="row">
-                            <ul class="list-group list-group-horizontal p-0 d-flex align-items-center justify-content-center">
-                                <li class="list-group-item p-0 col-4 cinza d-flex justify-content-center border-0"><button
-                                    type="button"
-                                    class="verdeBot border-0 sombras rounded tamanho16Resp_500 roboto distInpXBut sel col-sm-10"
-                                    form="li1"
-                                    >
-                                    <a href="#" class="text-decoration-none text-white text-center" id="li1">Pedidos</a>
-                                </button></li>
-                                <li class="list-group-item p-0 col-4 cinza d-flex justify-content-center border-0"><button
-                                    type="button"
-                                    class="verdeBot border-0 sombras rounded tamanho16Resp_500 roboto distInpXBut col-sm-10"
-                                    >
-                                    <a href="telaStatusPendFuncionario.html" class="text-decoration-none text-white text-center ">Pendências</a>
-                                </button></li>
-                                <li class="list-group-item p-0 col-4 cinza d-flex justify-content-center border-0"><button
-                                    type="button"
-                                    class="verdeBot border-0 sombras rounded tamanho16Resp_500 roboto distInpXBut col-sm-10"
-                                    >
-                                    <a href="telaStatusHistFuncionario.html" class="text-decoration-none text-white text-center ">Histórico</a>
-                                </button></li>
-                            </ul>
+.cinza {
+    background-color: #d0d8df;
+}
+
+.amaua {
+    background-color: #004587;
+}
+
+.verdeBot {
+    background-color: #00DC58;
+}
+
+.verdeBot:hover {
+    background-color: #009b3e;
+    transition: all 0.5s ease-in;
+}
+
+.vermeBtn {
+    background-color: #dc0000;
+}
+
+.vermeBtn:hover {
+    background-color: #bb0101;
+    transition: all 0.5s ease-in;
+}
+textarea:focus{
+    border: 0 none;
+    outline: 0;
+}
+.cinzaEsc {
+    color: #808080;
+}
+.cinzaTextarea{
+    background-color:#D7D7D7 ;
+}
+.sel{
+    background-color:#009b3e;
+}
+
+footer {
+    margin-top: 19.9vh;
+}
+
+            .corBorda{
+                border-color: #808080;
+            }
+            ::placeholder{
+                font-size: 16px;
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+            }
+            .sombras {
+                box-shadow: 0.1px;
+                -webkit-box-shadow: 3px 3px 3px #b3b3b3;
+            }
+            .sombrasTotal {
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+            }
+            .distCabCorp {
+                margin-top: 10%;
+            }
+            .distAlxTipo {
+                margin-top: 10%;
+            }
+            .distInpXBut {
+                margin-bottom: 15%;
+            }
+            .distInp{
+                margin-top: 7%;
+                margin-bottom: 15%;
+            }
+            .tam{
+                width: 65%;
+            }
+            
+        </style>
+    </head>
+    <body class="cinza roboto">
+        <section class="amaua">
+            <nav class="container-fluid ">
+                <section class="align-items-center d-flex flex-row">
+                    <div class="py-2">
+                        <img src="imagens/comp.png" alt="" width="60px">
+                    </div>
+                    <div class=" text-white p-3 roboto tamanho14 col">
+                        <div class="ms-2">
+                            Mauá Notebooks
                         </div>
-                    </section>
-                </body>
-                <footer class="flex-bottom">
-                    <section class="container-fluid p-0">
-                        <div class="amaua">
-                            <div class="d-flex justify-content-end">
-                                <div class="m-2"><img src="imagens/imt-logo.png" alt="" width="60px"></div>
-                            </div>
+                    </div>
+                </section>
+            </nav>
+        </section>
+        <section class="container-fluid">
+            <div class="d-flex justify-content-center mt-4 pt-2">
+            <img src="imagens/compCinza.png" alt="" width="58%">
+        </div>
+        <article class="d-flex justify-content-center">
+            <main class=" distCabCorp sombrasTotal card" style="width: 79%;">
+                <div class="tamanho24 d-flex justify-content-center card-body">
+                    <div class="text-center card-title">
+                        Tudo Pronto
+                    </div>
+                </div>
+                <section class="card-text">
+                    <article class="mb-3 mt-2 d-flex justify-content-center align-items-center">
+                        <div class="tamanho16 roboto cinzaEsc">
+                            Já usou o notebook?
                         </div>
-                    </section>
-                </footer>
-
-                </html>
+                    </article>
+                    <div class="d-flex justify-content-center">
+                        <button
+                            type="button"
+                            class="btn vermeBtn sombras rounded-pill mt-3 py-2 tamanho18_500 roboto  distInpXBut" style="width: 70%;">
+                            <a href="#" class="text-decoration-none text-white text-center ">DEVOLVER</a>
+                        </button>
+                    </div>
+                </section>
+            </article>
+        </main>
+    </article>
+    </section>
+</section>
+</footer>
+</body>
+<footer class="flex-bottom">
+    <section class="container-fluid p-0">
+        <div class="amaua">
+            <div class="d-flex justify-content-end">
+                <div class="m-2"><img src="imagens/imt-logo.png" alt="" width="60px"></div>
+            </div>
+        </div>
+    </section>
+</footer>
+</html>
