@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="/static/css/estilos1.css">
 
 
-    <title>Tela Devoluções-Funcionario</title>
     <style>
     .title{
         font-weight: bold;
@@ -33,12 +32,7 @@
     margin-left: 34px;
     width: 33%;
 }
-.request-box {
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin-bottom: 10px;
-        display: block;
-      }
+
 @media (max-width: 767px) { /* For mobile devices */
     .request-info {
         width: 90%;
@@ -52,6 +46,9 @@
         margin-left: 5%;
     }
 }
+#left-button{
+    margin-left: 34px;
+    }
 .three-buttons {
   display: inline-block;
   padding: 10px 20px;
@@ -66,9 +63,8 @@
   cursor: pointer;
   margin-bottom: 16px;
 }
-#left-button{
-    margin-left: 34px;
-    }
+
+
 .three-buttons:hover {
   background-color: #45a049;
 }
@@ -140,7 +136,7 @@
 
         function fetchApprovedRequests() {
             $.ajax({
-                url: '/get_pendencies',
+                url: '/get_pendencias',
                 method: 'GET',
                 dataType: 'json',
                 success: function(response) {
@@ -171,7 +167,6 @@
     });
   } else {
     var noRequestsElement = $('<div></div>');
- 
 
     container.append(noRequestsElement);
   }
@@ -195,33 +190,38 @@
         }
     </script>
 </head>
-<body>    
-    <section class="amaua">
-        <nav class="container-fluid">
-            <div class="row">
-                <div class=" text-white p-3 roboto tamanho14 p-4">
-                    <div class="d-flex px-4 amaua">
-                        <div style="order: 1;" class="px-2"><img src="/static/images/comp.png" alt="" width="60px"></div>
-                        <div style="order: 2;"class="px-3">Mauá Notebooks</div>
-                    </div>
+<section class="amaua">
+    <nav class="container-fluid">
+        <div class="row">
+            <div class=" text-white p-3 roboto tamanho14 p-4">
+                <div class="d-flex px-4 amaua">
+                    <div style="order: 1;" class="px-2"><img src="/static/images/comp.png" alt="" width="60px"></div>
+                    <div style="order: 2;"class="px-3">Mauá Notebooks</div>
                 </div>
             </div>
-        </nav>
-    </section>                                                                                                                                                                                                                                                                                                                                                          
+        </div>
+    </nav>
+</section>
+
+    
 
     <h1 class="title">Pendências</h1>
+
     <div
-    class="three-buttons" id="left-button" onclick="redirectTo('/telaListaAutentFuncionario_pendencias');"
+    class="three-buttons" id="left-button"
+    onclick="redirectTo('/telaListaAutentFuncionario_pendencias');"
   >
-    Pendências
+    Pendncias
   </div>
   <div
-    class="three-buttons"onclick="redirectTo('/telaListaAutentFuncionario_pedidos');"
+    class="three-buttons"
+    onclick="redirectTo('/telaListaAutentFuncionario_pedidos');"
   >
     Pedidos
   </div>
   <div
-    class="three-buttons"onclick="redirectTo('/telaListaAutentFuncionario_historico');"
+    class="three-buttons"
+    onclick="redirectTo('/telaListaAutentFuncionario_historico');"
   >
     Histórico
   </div>

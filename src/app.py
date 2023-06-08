@@ -136,24 +136,23 @@ def aluno_notebook():
         return redirect(url_for('home_aluno'))
 
 #aba Pendências
-@app.route('/get_pendencies', methods=['GET'])
-def get_pendencies():
-    try:
-        conn = sqlite3.connect('src/database/DB_notebooks.db')
-        cursor = conn.cursor()
+@app.route('/get_pendencias', methods=['GET'])
+def get_pendencias():
+   
+    conn = sqlite3.connect('src/database/DB_notebooks.db')
+    cursor = conn.cursor()
+    
+    query = "SELECT * FROM AlunoNotebook WHERE request = 0 AND DataDevolucao IS NULL"
+    print(query)
+    cursor.execute(query)
+    print(cursor.description
+          )
+    pending_requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
 
-        query = "SELECT * FROM AlunoNotebook WHERE DataRetirada IS NULL AND request = 0"
-        cursor.execute(query)
-        print(cursor.description)
-        print(row)
-        requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
-        print(requests)
-        conn.close()
+    conn.close()
 
-        return jsonify(requests)
-    except Exception as e:
-        traceback.print_exc()
-        return jsonify({'error': 'An error occurred'}), 500
+    return jsonify(pending_requests)
+
 #aba pedidos
 @app.route('/get_requests_admin', methods=['GET'])
 def get_requests_admin():
@@ -164,6 +163,7 @@ def get_requests_admin():
     cursor.execute(query)
 
     requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
+    
     conn.close()
 
     return jsonify(requests)
@@ -176,8 +176,9 @@ def get_historico_admin():
 
     query = "SELECT * FROM AlunoNotebook WHERE request = 0 AND DataDevolucao IS NOT NULL"
     cursor.execute(query)
-
     requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
+    print(requests)
+   
     conn.close()
 
     return jsonify(requests)
@@ -197,25 +198,6 @@ def update_request():
     if row:
         data_retirada = row[4]
         data_devolucao = row[5]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
 
     if row[6]==2:
         query = "DELETE FROM AlunoNotebook WHERE request = ?"
@@ -241,4 +223,4 @@ def update_request():
     return 'Request updated successfully'
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', threaded=True, debug=True)
+    app.run(host='127.0.0.1', port='8000', threaded=True, debug=True)

@@ -41,7 +41,7 @@
     <div id="requestsContainer"></div>
     
     
-    <button onclick="fetchApprovedRequests()">Pendências</button>
+    <button onclick="fetchApprovedRequests()">Pendncias</button>
     <button onclick="fetchRequests()">Pedidos</button>
     <button onclick="fetchHistorico()">Histórico</button>
     
@@ -84,7 +84,7 @@ function fetchApprovedRequests() {
     clearInterval(intervalId); 
     
     $.ajax({
-        url: '/get_pendencies',
+        url: '/get_pendencias',
         method: 'GET',
         dataType: 'json',
         success: function(response) {
