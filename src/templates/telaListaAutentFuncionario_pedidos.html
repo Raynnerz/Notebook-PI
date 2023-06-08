@@ -319,6 +319,15 @@
         
         fetchRequests();
       });
+      function startAutomaticUpdates() {
+        fetchRequests();
+
+        intervalId = setInterval(fetchRequests, 2000);
+    }
+
+    $(document).ready(function() {
+        startAutomaticUpdates();
+    });
     </script>
   </body>
 </html>
