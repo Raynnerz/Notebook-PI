@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="/static/css/estilos1.css">
 
 
-    <title>Histórico</title>
     <style>
     .title{
         font-weight: bold;
@@ -47,6 +46,9 @@
         margin-left: 5%;
     }
 }
+#left-button{
+    margin-left: 34px;
+    }
 .three-buttons {
   display: inline-block;
   padding: 10px 20px;
@@ -59,8 +61,9 @@
   color: #fff;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  margin-bottom: 16px;
 }
+
 
 .three-buttons:hover {
   background-color: #45a049;
@@ -164,7 +167,6 @@
     });
   } else {
     var noRequestsElement = $('<div></div>');
-    noRequestsElement.text('No requests found.');
 
     container.append(noRequestsElement);
   }
@@ -188,28 +190,43 @@
         }
     </script>
 </head>
-<body>    
-    <section class="amaua">
-        <nav class="container-fluid amaua">
-            <section class="row align-items-center">
-                <div class="col-2 m-2">
-                    <img src="/static/images/comp.png" alt="" width="60px">
+<section class="amaua">
+    <nav class="container-fluid">
+        <div class="row">
+            <div class=" text-white p-3 roboto tamanho14 p-4">
+                <div class="d-flex px-4 amaua">
+                    <div style="order: 1;" class="px-2"><img src="/static/images/comp.png" alt="" width="60px"></div>
+                    <div style="order: 2;"class="px-3">Mauá Notebooks</div>
                 </div>
-                <div class=" text-white p-3 roboto tamanho14 col">
-                    <div class="ms-2">
-                        Mauá Nootebooks
-                    </div>
-                </div>
-            </section>
-        </nav>
-    </section>                                                                                                                                                                                                                                                                                                                                                           
+            </div>
+        </div>
+    </nav>
+</section>
 
-    <h1 class="title">Pedidos</h1>
+    
+
+    <h1 class="title">Histórico</h1>
+
+    <div
+    class="three-buttons" id="left-button"
+    onclick="redirectTo('/telaListaAutentFuncionario_pendencias');"
+  >
+    Pendências
+  </div>
+  <div
+    class="three-buttons"
+    onclick="redirectTo('/telaListaAutentFuncionario_pedidos');"
+  >
+    Pedidos
+  </div>
+  <div
+    class="three-buttons"
+    onclick="redirectTo('/telaListaAutentFuncionario_historico');"
+  >
+    Histórico
+  </div>
     <div id="requestsContainer"></div>
     
-    <button class="three-buttons"style="margin-left: 34" onclick="redirectTo('/telaListaAutentFuncionario_pendencias');">Pendências</button>
-    <button class="three-buttons" onclick="redirectTo('/telaListaAutentFuncionario_pedidos');">Pedidos</button>
-    <button class="three-buttons" onclick="redirectTo('/telaListaAutentFuncionario_historico');">Histórico</button>
 
     <footer class="flex-bottom fixed-bottom mt-5 pt-5">
         <section class="container-fluid p-0">

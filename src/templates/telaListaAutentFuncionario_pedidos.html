@@ -1,222 +1,324 @@
 <html>
-<head>
-    <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <meta http-equiv="X-UA-Compatible" content="IE=chorme">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/estilos1.css">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=chorme" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin="crossorigin"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/css/estilos1.css" />
     <title>Dashboard</title>
     <style>
-        .request-box {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-        
+      .title {
+        font-weight: bold;
+        margin-bottom: 5px;
+        font-size: 36px;
+        padding: 10px;
+        width: 33%;
+        margin-bottom: 34px;
+        margin-left: 34;
+      }
+      .request-container {
+        display: flex; /* Add 'display: flex' property */
+        flex-direction: column; /* Add 'flex-direction: column' property */
+      }
+      .request-info {
+        font-weight: bold;
+        margin-bottom: 5px;
+        border: 1px solid blueviolet;
+        border-radius: 10px;
+        font-size: 24px;
+        padding: 10px;
+        margin-bottom: 34px;
+        margin-left: 34px;
+        width: 33%;
+      }
+      .title{
+        font-weight: bold;
+        margin-bottom: 5px;
+        font-size: 36px; 
+        padding: 10px; 
+        width: 33%;
+        margin-bottom: 34px;
+        margin-left: 34;        
+    }
+      @media (max-width: 767px) {
+        /* For mobile devices */
         .request-info {
-            font-weight: bold;
-            margin-bottom: 5px;
+          width: 90%;
+          margin-left: 5%;
         }
-        
-        .action-buttons {
-            margin-top: 10px;
+      }
+
+      @media (min-width: 768px) and (max-width: 1023px) {
+        /* For tablets */
+        .request-info {
+          width: 90%;
+          margin-left: 5%;
         }
-        
-        .approve-button,
-        .reject-button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 12px;
-            cursor: pointer;
-            margin-right: 5px;
-        }
-        
-        .reject-button {
-            background-color: #F44336;
-        }
+      }
+      .three-buttons {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        margin-bottom: 16px;
+      }
+      #left-button{
+    margin-left: 34px;
+    }
+      .three-buttons:hover {
+        background-color: #45a049;
+      }
+
+      .three-buttons:active {
+        background-color: #3e8e41;
+      }
+
+      .three-buttons:focus {
+        outline: none;
+      }
+      .request-box {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      .action-buttons {
+        margin-top: 10px;
+      }
+
+      .approve-button,
+      .reject-button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .approve-button {
+        margin-left: 5px;
+      }
+      .reject-button {
+        margin-left: 5px;
+      }
+
+      .reject-button {
+        background-color: #f44336;
+      }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        function fetchRequests() {
-            $.ajax({
-                url: '/get_requests_admin',
-                method: 'GET',
-                dataType: 'json',
-                success: function(response) {
-                    displayRequests(response);
-                },
-                error: function(xhr, status, error) {
-                    console.log('Error:', error);
-                }
-            });
-        }
+      function fetchRequests() {
+        $.ajax({
+          url: "/get_requests_admin",
+          method: "GET",
+          dataType: "json",
+          success: function (response) {
+            displayRequests(response);
+          },
+          error: function (xhr, status, error) {
+            console.log("Error:", error);
+          },
+        });
+      }
 
-        function fetchHistorico() {
-            $.ajax({
-                url: '/get_historico_admin',
-                method: 'GET',
-                dataType: 'json',
-                success: function(response) {
-                    displayRequests(response);
-                },
-                error: function(xhr, status, error) {
-                    console.log('Error:', error);
-                }
-            });
-        }
+      function fetchHistorico() {
+        $.ajax({
+          url: "/get_historico_admin",
+          method: "GET",
+          dataType: "json",
+          success: function (response) {
+            displayRequests(response);
+          },
+          error: function (xhr, status, error) {
+            console.log("Error:", error);
+          },
+        });
+      }
 
-        function fetchApprovedRequests() {
-            $.ajax({
-                url: '/get_pendencies',
-                method: 'GET',
-                dataType: 'json',
-                success: function(response) {
-                    displayRequests(response);
-                },
-                error: function(xhr, status, error) {
-                    console.log('Error:', error);
-                }
-            });
-        }
+      function fetchApprovedRequests() {
+        $.ajax({
+          url: "/get_pendencies",
+          method: "GET",
+          dataType: "json",
+          success: function (response) {
+            displayRequests(response);
+          },
+          error: function (xhr, status, error) {
+            console.log("Error:", error);
+          },
+        });
+      }
 
-        function displayRequests(requests) {
-            var container = $('#requestsContainer');
-            container.empty();
-            
-            if (requests && requests.length > 0) {
-                requests.forEach(function(request) {
-                    var requestBox = $('<div class="request-box"></div>');
-                    
-                    var requestInfo = $('<div class="request-info"></div>');
-                    requestInfo.text('Request ID: ' + request.idAlunoNotebook + ', Student: ' + request.ra + ', Notebook Number: ' + request.idNotebook);
-                    
-                    // Create action buttons
-                    var actionButtons = $('<div class="action-buttons"></div>');
-                    var autenticarButton = $('<button class="approve-button">Autenticar</button>');
-                    var recusarButton = $('<button class="reject-button">Recusar</button>');
-                    
-                    autenticarButton.on('click', function() {
-                        updateRequest(request.idAlunoNotebook, '0'); 
-                    });
-                    
-                    recusarButton.on('click', function() {
-                        updateRequest(request.idAlunoNotebook, '2');  
-                    });
-                    
-                    actionButtons.append(autenticarButton);
-                    actionButtons.append(recusarButton);
-                    
-                    requestBox.append(requestInfo);
-                    requestBox.append(actionButtons);
-                    
-                    container.append(requestBox);
-                });
-            } else {
-                var noRequestsElement = $('<div></div>');
-                noRequestsElement.text('No requests found.');
-                
-                container.append(noRequestsElement);
-            }
-        }
-        
-        function updateRequest(requestId, status, data_retirada, data_devolucao) {
-            $.ajax({
-                url: '/update_request',
-                method: 'POST',
-                data: {
-                    requestId: requestId,
-                    status: status
-                },
-                success: function(response) {
-                    console.log('Request updated successfully');
-                },
-                error: function(xhr, status, error) {
-                    console.log('Error:', error);
-                }
+      function displayRequests(requests) {
+        var container = $("#requestsContainer");
+        container.empty();
+
+        if (requests && requests.length > 0) {
+          requests.forEach(function (request) {
+            var requestBox = $('<div class="request-box"></div>');
+
+            var requestInfo = $(
+              '<div class="request-info">' +
+                'ID: <span class="id-text">' +
+                request.idAlunoNotebook +
+                "</span><br>Aluno: " +
+                request.ra +
+                "<br>Código do Notebook: " +
+                request.idNotebook +
+                '<br><div class="action-buttons"><button class="approve-button" onclick="redirectTo(\'/telaListaAutentFuncionario_pedidos\')">Autenticar</button><button class="reject-button" onclick="redirectTo(\'/telaListaAutentFuncionario_pedidos\')">Recusar</button></div></div>'
+            );
+
+            // Create action buttons
+            var autenticarButton = requestInfo.find(".approve-button");
+            var recusarButton = requestInfo.find(".reject-button");
+
+            autenticarButton.on("click", function () {
+              updateRequest(request.idAlunoNotebook, "0");
             });
+
+            recusarButton.on("click", function () {
+              updateRequest(request.idAlunoNotebook, "2");
+            });
+
+            requestBox.append(requestInfo);
+
+            container.append(requestBox);
+          });
+        } else {
+          var noRequestsElement = $("<div></div>");
+
+
+          container.append(noRequestsElement);
         }
+      }
+
+      function updateRequest(requestId, status, data_retirada, data_devolucao) {
+        $.ajax({
+          url: "/update_request",
+          method: "POST",
+          data: {
+            requestId: requestId,
+            status: status,
+          },
+          success: function (response) {
+            console.log("Request updated successfully");
+          },
+          error: function (xhr, status, error) {
+            console.log("Error:", error);
+          },
+        });
+      }
     </script>
-</head>
-<body>
+  </head>
+  <body>
     <section class="amaua">
-        <nav class="container-fluid amaua">
-            <section class="row align-items-center">
-                <div class="col-2 m-2">
-                    <img src="/static/images/comp.png" alt="" width="60px">
-                </div>
-                <div class=" text-white p-3 roboto tamanho14 col">
-                    <div class="ms-2">
-                        Mauá Nootebooks
-                    </div>
-                </div>
-            </section>
-        </nav>
-    </section>     
+      <nav class="container-fluid">
+          <div class="row">
+              <div class=" text-white p-3 roboto tamanho14 p-4">
+                  <div class="d-flex px-4 amaua">
+                      <div style="order: 1;" class="px-2"><img src="/static/images/comp.png" alt="" width="60px"></div>
+                      <div style="order: 2;"class="px-3">Mauá Notebooks</div>
+                  </div>
+              </div>
+          </div>
+      </nav>
+  </section>
 
-    <h1>AlunoNotebook Requests</h1>
-    <div id="requestsContainer"></div>
-    
-    <button onclick="redirectTo('/telaListaAutentFuncionario_pendencias');">Pendências</button>
-    <button onclick="redirectTo('/telaListaAutentFuncionario_pedidos');">Pedidos</button>
-    <button onclick="redirectTo('/telaListaAutentFuncionario_historico');">Histórico</button>
+    <h1 class="title">Pedidos</h1>
+    <div
+      class="three-buttons" id="left-button"
+      onclick="redirectTo('/telaListaAutentFuncionario_pendencias');"
+    >
+      Pendências
+    </div>
+    <div
+      class="three-buttons"
+      onclick="redirectTo('/telaListaAutentFuncionario_pedidos');"
+    >
+      Pedidos
+    </div>
+    <div
+      class="three-buttons"
+      onclick="redirectTo('/telaListaAutentFuncionario_historico');"
+    >
+      Histórico
+    </div>
+
+    <div id="requestsContainer" style="margin-bottom: 100px"></div>
 
     <footer class="flex-bottom fixed-bottom mt-5 pt-5">
-        <section class="container-fluid p-0">
-            <div class="amaua">
-                <div class="d-flex justify-content-end">
-                    <div class="m-2"><img src="/static/images/imt-logo.png" alt="" width="60px"></div>
-                </div>
+      <section class="container-fluid p-0">
+        <div class="amaua">
+          <div class="d-flex justify-content-end">
+            <div class="m-2">
+              <img src="/static/images/imt-logo.png" alt="" width="60px" />
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
     </footer>
 
     <script>
-        $(document).ready(function() {
-            // Load initial data
+      $(document).ready(function () {
+        // Load initial data
+        fetchRequests();
+      });
+
+      function redirectTo(url) {
+        setTimeout(function () {
+          window.location.href = url;
+        }, 100);
+      }
+
+      $(window).on("load", function () {
+        var currentUrl = window.location.pathname;
+
+        if (currentUrl === "/telaListaAutentFuncionario_pendencias") {
+          setTimeout(function () {
+            fetchApprovedRequests();
+          }, 100);
+        } else if (currentUrl === "/telaListaAutentFuncionario_pedidos") {
+          setTimeout(function () {
             fetchRequests();
-        });
-
-        function redirectTo(url) {
-            setTimeout(function() {
-                window.location.href = url;
-            }, 100);
+          }, 100);
+        } else if (currentUrl === "/telaListaAutentFuncionario_historico") {
+          setTimeout(function () {
+            fetchHistorico();
+          }, 100);
         }
+      });
 
-        $(window).on('load', function() {
-            var currentUrl = window.location.pathname;
-            
-            if (currentUrl === '/telaListaAutentFuncionario_pendencias') {
-                setTimeout(function() {
-                    fetchApprovedRequests();
-                }, 100);
-            } else if (currentUrl === '/telaListaAutentFuncionario_pedidos') {
-                setTimeout(function() {
-                    fetchRequests();
-                }, 100);
-            } else if (currentUrl === '/telaListaAutentFuncionario_historico') {
-                setTimeout(function() {
-                    fetchHistorico();
-                }, 100);
-            }
-        });
-
-
-
-        
-            $(document).ready(function() {
-                // Load initial data
-                fetchRequests();
-            });
-    
+      $(document).ready(function () {
+        // Load initial data
+        fetchRequests();
+      });
     </script>
-</body>
+  </body>
 </html>
