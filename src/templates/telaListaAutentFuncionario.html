@@ -1,0 +1,202 @@
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        .request-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .request-info {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .action-buttons {
+            margin-top: 10px;
+        }
+        
+        .approve-button,
+        .reject-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        
+        .reject-button {
+            background-color: #F44336;
+        }
+    </style>
+</head>
+<body>
+    <h1>AlunoNotebook Requests</h1>
+    <div id="requestsContainer"></div>
+    
+    
+    <button onclick="fetchApprovedRequests()">Pendncias</button>
+    <button onclick="fetchRequests()">Pedidos</button>
+    <button onclick="fetchHistorico()">Histórico</button>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+var intervalId; 
+
+function fetchRequests() {
+    clearInterval(intervalId); 
+    
+    $.ajax({
+        url: '/get_requests_admin',
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            displayRequests(response);
+        },
+        error: function(xhr, status, error) {
+            console.log('Error:', error);
+        }
+    });
+}
+function fetchHistorico() {
+    clearInterval(intervalId); 
+    
+    $.ajax({
+        url: '/get_historico_admin',
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            displayRequests(response);
+        },
+        error: function(xhr, status, error) {
+            console.log('Error:', error);
+        }
+    });
+}
+
+function fetchApprovedRequests() {
+    clearInterval(intervalId); 
+    
+    $.ajax({
+        url: '/get_pendencias',
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            displayRequests(response);
+        },
+        error: function(xhr, status, error) {
+            console.log('Error:', error);
+        }
+    });
+}
+
+function startFetching() {
+    intervalId = setInterval(function() {
+        fetchRequests();
+    }, 1000);
+}
+
+
+$('#requestsButton').on('click', function() {
+    fetchRequests();
+    startFetching();
+});
+
+$('#approvedRequestsButton').on('click', function() {
+    fetchApprovedRequests();
+    clearInterval(intervalId); 
+});
+
+$('#HistoricoButton').on('click', function() {
+    fetchHistorico();
+    clearInterval(intervalId); 
+});
+
+
+fetchRequests();
+startFetching();
+
+        function displayRequests(requests) {
+            var container = $('#requestsContainer');
+            container.empty();
+            
+            if (requests && requests.length > 0) {
+                requests.forEach(function(request) {
+                    var requestBox = $('<div class="request-box"></div>');
+                    
+                    var requestInfo = $('<div class="request-info"></div>');
+                    requestInfo.text('Request ID: ' + request.idAlunoNotebook + ', Student: ' + request.ra + ', Notebook Number: ' + request.idNotebook);
+                    
+                    // Create action buttons
+                    var actionButtons = $('<div class="action-buttons"></div>');
+                    var autenticarButton = $('<button class="approve-button">Autenticar</button>');
+                    var recusarButton = $('<button class="reject-button">Recusar</button>');
+                    
+                    autenticarButton.on('click', function() {
+                        updateRequest(request.idAlunoNotebook, '0'); 
+                    });
+                    
+                    recusarButton.on('click', function() {
+                        updateRequest(request.idAlunoNotebook, '1');  
+                    });
+                    
+                    
+                    actionButtons.append(autenticarButton);
+                    actionButtons.append(recusarButton);
+                    
+                    
+                    requestBox.append(requestInfo);
+                    requestBox.append(actionButtons);
+                    
+                    container.append(requestBox);
+                });
+            } else {
+                var noRequestsElement = $('<div></div>');
+                noRequestsElement.text('No requests found.');
+                
+                container.append(noRequestsElement);
+            }
+        }
+        
+        function updateRequest(requestId, status, data_retirada, data_devolucao) {
+        $.ajax({
+            url: '/update_request',
+            method: 'POST',
+            data: {
+                requestId: requestId,
+                status: status
+            },
+            success: function(response) {
+                console.log('Request updated successfully');
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+
+    function updateHistorico(requestId, status, data_retirada, data_devolucao) {
+        $.ajax({
+            url: '/get_historico_admin',
+            method: 'POST',
+            data: {
+                requestId: requestId,
+                status: status
+            },
+            success: function(response) {
+                console.log('Request updated successfully');
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+    </script>
+</body>
+</html>
