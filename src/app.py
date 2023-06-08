@@ -1,4 +1,5 @@
 import sqlite3
+import traceback
 import bcrypt
 from flask import Flask, jsonify, render_template, redirect, url_for, request, session
 import time
@@ -46,7 +47,7 @@ def update_requests_devolver():
 
         cursor.execute("SELECT * FROM AlunoNotebook WHERE ra = ?", (username,))
         row = cursor.fetchone()
-        print(row)
+        
     
         query= ("UPDATE AlunoNotebook SET request = 1 WHERE ra = ?")
         cursor.execute(query, (username,))
@@ -135,19 +136,22 @@ def aluno_notebook():
         return redirect(url_for('home_aluno'))
 
 #aba Pendências
-@app.route('/get_pendencies', methods=['GET'])
-def get_pendencies():
+@app.route('/get_pendencias', methods=['GET'])
+def get_pendencias():
+   
     conn = sqlite3.connect('src/database/DB_notebooks.db')
     cursor = conn.cursor()
-
-    query = "SELECT * FROM AlunoNotebook WHERE DataRetirada IS NULL AND request = 0"
+    
+    query = "SELECT * FROM AlunoNotebook WHERE request = 0 AND DataDevolucao IS NULL"
+    print(query)
     cursor.execute(query)
-
-    requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
+    print(cursor.description
+          )
+    pending_requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
 
     conn.close()
 
-    return jsonify(requests)
+    return jsonify(pending_requests)
 
 #aba pedidos
 @app.route('/get_requests_admin', methods=['GET'])
@@ -159,6 +163,7 @@ def get_requests_admin():
     cursor.execute(query)
 
     requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
+    
     conn.close()
 
     return jsonify(requests)
@@ -171,8 +176,9 @@ def get_historico_admin():
 
     query = "SELECT * FROM AlunoNotebook WHERE request = 0 AND DataDevolucao IS NOT NULL"
     cursor.execute(query)
-
     requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
+    print(requests)
+   
     conn.close()
 
     return jsonify(requests)
@@ -192,25 +198,6 @@ def update_request():
     if row:
         data_retirada = row[4]
         data_devolucao = row[5]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
 
     if row[6]==2:
         query = "DELETE FROM AlunoNotebook WHERE request = ?"
@@ -236,4 +223,4 @@ def update_request():
     return 'Request updated successfully'
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', threaded=True, debug=True)
+    app.run(host='127.0.0.1', port='8000', threaded=True, debug=True)
