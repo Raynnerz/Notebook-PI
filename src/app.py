@@ -1,4 +1,5 @@
 import sqlite3
+import traceback
 import bcrypt
 from flask import Flask, jsonify, render_template, redirect, url_for, request, session
 import time
@@ -46,7 +47,7 @@ def update_requests_devolver():
 
         cursor.execute("SELECT * FROM AlunoNotebook WHERE ra = ?", (username,))
         row = cursor.fetchone()
-        print(row)
+        
     
         query= ("UPDATE AlunoNotebook SET request = 1 WHERE ra = ?")
         cursor.execute(query, (username,))
@@ -137,18 +138,22 @@ def aluno_notebook():
 #aba Pendências
 @app.route('/get_pendencies', methods=['GET'])
 def get_pendencies():
-    conn = sqlite3.connect('src/database/DB_notebooks.db')
-    cursor = conn.cursor()
+    try:
+        conn = sqlite3.connect('src/database/DB_notebooks.db')
+        cursor = conn.cursor()
 
-    query = "SELECT * FROM AlunoNotebook WHERE DataRetirada IS NULL AND request = 0"
-    cursor.execute(query)
+        query = "SELECT * FROM AlunoNotebook WHERE DataRetirada IS NULL AND request = 0"
+        cursor.execute(query)
+        print(cursor.description)
+        print(row)
+        requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
+        print(requests)
+        conn.close()
 
-    requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
-
-    conn.close()
-
-    return jsonify(requests)
-
+        return jsonify(requests)
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({'error': 'An error occurred'}), 500
 #aba pedidos
 @app.route('/get_requests_admin', methods=['GET'])
 def get_requests_admin():
