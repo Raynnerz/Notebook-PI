@@ -1,12 +1,16 @@
-# Aluga notebook Projeto IMT
-## Site para alugar notebook no Instituo Mauá de Tecnologia realizado em Flask
+# Aluga Notebook Projeto IMT
+
+## Site para o alguel notebook no Instituo Mauá de Tecnologia realizado com Flask e SQLite
 
 
 ## Criadores:
-@felipe7789
-@Briqz23
-@jaoVassalo
-@Raynnerz
+
+@felipe7789 - frontend
+@Briqz23 - backend e database
+@jaoVassalo - UX/UI design
+@leo-gc - database e documentação
+@Raynnerz - frontend
+
 
 ## Instalação:
 
@@ -16,6 +20,12 @@ Windows & Linux:
 ```bash
 pip install virtualenv
 ```
+
+```bash
+pip install venv
+```
+
+
 ### Criação do ambiente virtual (primeira vez)
 
 Windows:
