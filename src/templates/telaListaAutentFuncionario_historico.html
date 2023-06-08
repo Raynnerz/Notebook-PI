@@ -8,27 +8,81 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="estilos1.css">
-    <title>Tela Devoluções-Funcionario</title>
-    <style>
+    <link rel="stylesheet" href="/static/css/estilos1.css">
 
-    .request-info {
+
+    <style>
+    .title{
         font-weight: bold;
         margin-bottom: 5px;
-        border: 1px solid blueviolet;
-        border-radius: 10px; 
-        font-size: 32px; 
+        font-size: 36px; 
         padding: 10px; 
         width: 33%;
         margin-bottom: 34px;
-        margin-left: 34;
-        
+        margin-left: 34;        
     }
+    .request-info {
+    font-weight: bold;
+    margin-bottom: 5px;
+    border: 1px solid blueviolet;
+    border-radius: 10px;
+    font-size: 24px;
+    padding: 10px;
+    margin-bottom: 34px;
+    margin-left: 34px;
+    width: 33%;
+}
+
+@media (max-width: 767px) { /* For mobile devices */
+    .request-info {
+        width: 90%;
+        margin-left: 5%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) { /* For tablets */
+    .request-info {
+        width: 90%;
+        margin-left: 5%;
+    }
+}
+#left-button{
+    margin-left: 34px;
+    }
+.three-buttons {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+
+.three-buttons:hover {
+  background-color: #45a049;
+}
+
+.three-buttons:active {
+  background-color: #3e8e41;
+}
+
+.three-buttons:focus {
+  outline: none;
+}
+
 
 
         
         .action-buttons {
             margin-top: 10px;
+            
         }
         
         .approve-button,
@@ -113,7 +167,6 @@
     });
   } else {
     var noRequestsElement = $('<div></div>');
-    noRequestsElement.text('No requests found.');
 
     container.append(noRequestsElement);
   }
@@ -137,65 +190,92 @@
         }
     </script>
 </head>
-<body>    
-    <section>
-    <nav class="container-fluid ">
-        <section class="align-items-center d-flex flex-row">
-            <div class="py-2">
-                <img src="imagens/comp.png" alt="" width="60px">
-            </div>
-            <div class=" text-white p-3 roboto tamanho14 col">
-                <div class="ms-2">
-                    Mauá Notebooks
+<section class="amaua">
+    <nav class="container-fluid">
+        <div class="row">
+            <div class=" text-white p-3 roboto tamanho14 p-4">
+                <div class="d-flex px-4 amaua">
+                    <div style="order: 1;" class="px-2"><img src="/static/images/comp.png" alt="" width="60px"></div>
+                    <div style="order: 2;"class="px-3">Mauá Notebooks</div>
                 </div>
             </div>
-        </section>                                                                                                                                                                                                                                                                                                                                                              
+        </div>
+    </nav>
+</section>
 
-    <h1>AlunoNotebook Requests</h1>
+    
+
+    <h1 class="title">Histórico</h1>
+
+    <div
+    class="three-buttons" id="left-button"
+    onclick="redirectTo('/telaListaAutentFuncionario_pendencias');"
+  >
+    Pendências
+  </div>
+  <div
+    class="three-buttons"
+    onclick="redirectTo('/telaListaAutentFuncionario_pedidos');"
+  >
+    Pedidos
+  </div>
+  <div
+    class="three-buttons"
+    onclick="redirectTo('/telaListaAutentFuncionario_historico');"
+  >
+    Histórico
+  </div>
     <div id="requestsContainer"></div>
     
-<button onclick="redirectTo('/telaListaAutentFuncionario_pendencias');">Pendências</button>
-<button onclick="redirectTo('/telaListaAutentFuncionario_pedidos');">Pedidos</button>
-<button onclick="redirectTo('/telaListaAutentFuncionario_historico');">Histórico</button>
 
-<script>
-    $(document).ready(function() {
-        // Load initial data
-        fetchRequests();
-    });
+    <footer class="flex-bottom fixed-bottom mt-5 pt-5">
+        <section class="container-fluid p-0">
+            <div class="amaua">
+                <div class="d-flex justify-content-end">
+                    <div class="m-2"><img src="/static/images/imt-logo.png" alt="" width="60px"></div>
+                </div>
+            </div>
+        </section>
+    </footer>
 
-    function redirectTo(url) {
-        setTimeout(function() {
-            window.location.href = url;
-        }, 100);
-    }
-
-    $(window).on('load', function() {
-        var currentUrl = window.location.pathname;
-        
-        if (currentUrl === '/telaListaAutentFuncionario_pendencias') {
-            setTimeout(function() {
-                fetchApprovedRequests();
-            }, 100);
-        } else if (currentUrl === '/telaListaAutentFuncionario_pedidos') {
-            setTimeout(function() {
-                fetchRequests();
-            }, 100);
-        } else if (currentUrl === '/telaListaAutentFuncionario_historico') {
-            setTimeout(function() {
-                fetchHistorico();
-            }, 100);
-        }
-    });
-
-
-
-    
+    <script>
         $(document).ready(function() {
             // Load initial data
             fetchRequests();
         });
-  
-</script>
+
+        function redirectTo(url) {
+            setTimeout(function() {
+                window.location.href = url;
+            }, 100);
+        }
+
+        $(window).on('load', function() {
+            var currentUrl = window.location.pathname;
+            
+            if (currentUrl === '/telaListaAutentFuncionario_pendencias') {
+                setTimeout(function() {
+                    fetchApprovedRequests();
+                }, 100);
+            } else if (currentUrl === '/telaListaAutentFuncionario_pedidos') {
+                setTimeout(function() {
+                    fetchRequests();
+                }, 100);
+            } else if (currentUrl === '/telaListaAutentFuncionario_historico') {
+                setTimeout(function() {
+                    fetchHistorico();
+                }, 100);
+            }
+        });
+
+
+
+        
+            $(document).ready(function() {
+                // Load initial data
+                fetchRequests();
+            });
+    
+    </script>
 </body>
 </html>

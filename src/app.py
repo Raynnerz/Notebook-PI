@@ -89,10 +89,10 @@ def login():
 
         conn.close()
         error = 'Invalid username or password'
-        return render_template('login_page.html', error=error)
+        return render_template('tela_login.html', error=error)
 
     else:
-        return render_template('login_page.html')
+        return render_template('tela_login.html')
 
 
 @app.route('/logout')
