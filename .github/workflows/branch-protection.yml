@@ -12,7 +12,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
       - name: Update Branch Protection
-        uses: Briqz23/branch-protection@v2
+        uses: Raynnerz/branch-protection@v2
         with:
           require-review: true
           required-review-count: 1
