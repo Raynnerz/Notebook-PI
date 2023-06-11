@@ -89,7 +89,7 @@ def login():
             return redirect(url_for('telaListaAutentFuncionario_pedidos'))
 
         conn.close()
-        error = 'Invalid username or password'
+        error = 'Usuário e/ou senha inválido(s)'
         return render_template('tela_login.html', error=error)
 
     else:
