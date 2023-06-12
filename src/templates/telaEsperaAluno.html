@@ -54,7 +54,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Function to check the status value and navigate to the appropriate page
             function checkStatus() {
                 $.ajax({
                     url: "/get_status",
@@ -63,10 +62,8 @@
                         var status = response.status;
 
                         if (status == 1) {
-                            // Row[6] is equal to 1, navigate to telaEsperaAluno.html
                             window.location.href = "/tela_espera_aluno";
                         } else {
-                            // Row[6] is not equal to 1, navigate to telaAlunoDevolver.html
                             window.location.href = "/update_requests_devolver";
                         }
                     },
@@ -76,10 +73,8 @@
                 });
             }
 
-            // Call the checkStatus function initially
             checkStatus();
 
-            // Set interval to check the status every 5 seconds
             setInterval(checkStatus, 5000);
         });
     </script>
