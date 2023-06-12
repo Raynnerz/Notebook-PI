@@ -1,4 +1,5 @@
 import sqlite3
+import json
 import traceback
 import bcrypt
 from flask import Flask, jsonify, render_template, redirect, url_for, request, session
@@ -23,16 +24,52 @@ def telaListaAutentFuncionario_pedidos():
 def telaListaAutentFuncionario_historico():
     return render_template('telaListaAutentFuncionario_historico.html')
 
+
 @app.route('/update_requests_devolver')
 def tela_aluno_devolver():
     if 'user_id' in session:
         session['username'] = session['user_id']
-        return render_template('telaAlunoDevolver.html', username=session['username'])
+        return redirect(url_for('tela_espera_aluno', username=session['username']))
     else:
         return "Unauthorized access"
+    
 
+@app.route('/tela_espera_aluno')
 
+@app.route('/tela_espera_aluno')
+def tela_espera_aluno():
+    if 'user_id' in session:
+        username = session['user_id']
+        conn = sqlite3.connect('src/database/DB_notebooks.db')
+        cursor = conn.cursor()
 
+        cursor.execute("SELECT * FROM AlunoNotebook WHERE ra = ?", (username,))
+        row = cursor.fetchone()
+
+        if row[6] == 1:
+            return render_template('telaEsperaAluno.html', status=1)
+        else:
+            return render_template('telaAlunoDevolver.html', status=0)
+
+    return "Unauthorized access"
+
+@app.route('/get_status')
+def get_status():
+    if 'user_id' in session:
+        username = session['user_id']
+        conn = sqlite3.connect('src/database/DB_notebooks.db')
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT * FROM AlunoNotebook WHERE ra = ?", (username,))
+        row = cursor.fetchone()
+
+        status = row[6] if row else None
+
+        conn.close()
+
+        return jsonify({"status": status})
+    else:
+        return jsonify({"status": None})
 
 @app.route('/update_requests_devolver', methods=['POST'])
 def update_requests_devolver():
@@ -124,7 +161,7 @@ def aluno_notebook():
             if max_id is None:
                 max_id = 0
             idAlunoNotebook = max_id + 1
-
+   
             query = "INSERT INTO AlunoNotebook (idAlunoNotebook, ra, idNotebook, bloco, request) VALUES (?, ?, ?, ?, ?)"
             cursor.execute(query, (idAlunoNotebook, username, notebook_number, bloco, request_value))
             conn.commit()
@@ -134,6 +171,7 @@ def aluno_notebook():
             return redirect(url_for('update_requests_devolver'))
     else:
         return redirect(url_for('home_aluno'))
+    
 
 #aba Pendências
 @app.route('/get_pendencias', methods=['GET'])
@@ -223,4 +261,4 @@ def update_request():
     return 'Request updated successfully'
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port='8000', threaded=True, debug=True)
+    app.run(host='127.0.0.1', port='8000', threaded=True)
