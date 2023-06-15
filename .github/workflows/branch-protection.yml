@@ -1,4 +1,4 @@
-
+"""
 on:
   push:
     branches:
@@ -16,3 +16,4 @@ jobs:
           require-review: true
           required-review-count: 1
           require-status-checks: true
+"""
