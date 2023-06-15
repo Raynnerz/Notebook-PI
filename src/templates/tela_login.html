@@ -36,18 +36,10 @@
                 box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
             }
             .distCabCorp {
-                margin-top: 24%;
+                margin-top: 75px;
             }
             .distAlxTipo {
-                margin-top: 10%;
-            }
-            .distInpXBut {
-                margin-top:30%;
-                margin-bottom: 20%;
-            }
-            .distInp{
-                margin-top: 7%;
-                margin-bottom: 15%;
+                margin-top: 10px;
             }
         </style>
     </head>
@@ -67,7 +59,7 @@
             </nav>
         </section>
         <section class="container-fluid d-flex justify-content-center">
-            <main class=" distCabCorp sombrasTotal card" style="width: 79%;">
+            <main class=" distCabCorp sombrasTotal card col-10 col-md-6 col-xl-4">
                 <div class="tamanho24 d-flex justify-content-center card-body">
                     <div class="text-center card-title">
                         Login
@@ -75,16 +67,17 @@
                 </div>
                 <form action="" method="post">
                     <div class="row justify-content-center">
-
-                        <input class="login-ra col-md-4 col-sm-12 m-2 mt-4" type="text" placeholder="insira seu R.A"
+                        <div class="col-9 col-md-6">
+                            <input class="login-ra form-control m-2 mt-4" type="text" placeholder="RA"
                                name="ra" value="{{
           request.form.ra }}">
-
-
+                        </div>
                     </div>
                     <div class="row justify-content-center">
-                                <input class="login-senha col-md-4 col-sm-12 m-2 mb-3" type="password" placeholder="insira sua senha" name="senha" value="{{
-          request.form.senha}}">
+                        <div class="col-9 col-md-6">
+                            <input class="login-senha form-control m-2 mb-3" type="password" placeholder="Senha" name="senha" value="{{
+                                request.form.senha}}">
+                        </div>
                     </div>
                     <div class="row justify-content-center">
                                 <input class="btn tamanho18_500 roboto rounded-pill text-white sombras verdeBot col-md-2 col-8 m-2 my-2 mb-4" type="submit" value="ENTRAR">
@@ -103,7 +96,7 @@
         <div class="amaua">
             <div class="d-flex justify-content-end">
                 <div class="m-2"><img src="/static/images/imt-logo.png" alt="" width="60px"></div>
-            </div>
+            </div>  
         </div>
     </section>
 </footer>

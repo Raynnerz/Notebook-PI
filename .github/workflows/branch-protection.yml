@@ -1,5 +1,4 @@
-name: Branch Protection
-
+"""
 on:
   push:
     branches:
@@ -12,8 +11,9 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
       - name: Update Branch Protection
-        uses: Raynnerz/branch-protection@v2
+        uses: Briqz23/branch-protection@v2
         with:
           require-review: true
           required-review-count: 1
           require-status-checks: true
+"""

@@ -1,4 +1,5 @@
 import sqlite3
+import json
 import traceback
 import bcrypt
 from flask import Flask, jsonify, render_template, redirect, url_for, request, session
@@ -23,16 +24,52 @@ def telaListaAutentFuncionario_pedidos():
 def telaListaAutentFuncionario_historico():
     return render_template('telaListaAutentFuncionario_historico.html')
 
+
 @app.route('/update_requests_devolver')
 def tela_aluno_devolver():
     if 'user_id' in session:
         session['username'] = session['user_id']
-        return render_template('telaAlunoDevolver.html', username=session['username'])
+        return redirect(url_for('tela_espera_aluno', username=session['username']))
     else:
         return "Unauthorized access"
+    
 
+@app.route('/tela_espera_aluno')
 
+@app.route('/tela_espera_aluno')
+def tela_espera_aluno():
+    if 'user_id' in session:
+        username = session['user_id']
+        conn = sqlite3.connect('src/database/DB_notebooks.db')
+        cursor = conn.cursor()
 
+        cursor.execute("SELECT * FROM AlunoNotebook WHERE ra = ?", (username,))
+        row = cursor.fetchone()
+
+        if row[6] == 1:
+            return render_template('telaEsperaAluno.html', status=1)
+        else:
+            return render_template('telaAlunoDevolver.html', status=0)
+
+    return "Unauthorized access"
+
+@app.route('/get_status')
+def get_status():
+    if 'user_id' in session:
+        username = session['user_id']
+        conn = sqlite3.connect('src/database/DB_notebooks.db')
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT * FROM AlunoNotebook WHERE ra = ?", (username,))
+        row = cursor.fetchone()
+
+        status = row[6] if row else None
+
+        conn.close()
+
+        return jsonify({"status": status})
+    else:
+        return jsonify({"status": None})
 
 @app.route('/update_requests_devolver', methods=['POST'])
 def update_requests_devolver():
@@ -89,7 +126,7 @@ def login():
             return redirect(url_for('telaListaAutentFuncionario_pedidos'))
 
         conn.close()
-        error = 'Invalid username or password'
+        error = 'Usuário e/ou fhistosenha inválido(s)'
         return render_template('tela_login.html', error=error)
 
     else:
@@ -124,7 +161,7 @@ def aluno_notebook():
             if max_id is None:
                 max_id = 0
             idAlunoNotebook = max_id + 1
-
+   
             query = "INSERT INTO AlunoNotebook (idAlunoNotebook, ra, idNotebook, bloco, request) VALUES (?, ?, ?, ?, ?)"
             cursor.execute(query, (idAlunoNotebook, username, notebook_number, bloco, request_value))
             conn.commit()
@@ -134,47 +171,41 @@ def aluno_notebook():
             return redirect(url_for('update_requests_devolver'))
     else:
         return redirect(url_for('home_aluno'))
+    
 
 #aba Pendências
 @app.route('/get_pendencias', methods=['GET'])
 def get_pendencias():
-   
     conn = sqlite3.connect('src/database/DB_notebooks.db')
     cursor = conn.cursor()
-    
-    query = "SELECT * FROM AlunoNotebook WHERE request = 0 AND DataDevolucao IS NULL"
-    print(query)
+
+    query = """
+    SELECT AlunoNotebook.idAlunoNotebook, Aluno.nome AS aluno, AlunoNotebook.idNotebook, AlunoNotebook.bloco, AlunoNotebook.dataRetirada, AlunoNotebook.dataDevolucao, AlunoNotebook.request
+    FROM AlunoNotebook
+    INNER JOIN Aluno ON AlunoNotebook.ra = Aluno.ra
+    WHERE AlunoNotebook.request = 0 AND AlunoNotebook.datadevolucao IS NULL
+    """
     cursor.execute(query)
-    print(cursor.description
-          )
+
     pending_requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
 
     conn.close()
 
     return jsonify(pending_requests)
 
-#aba pedidos
-@app.route('/get_requests_admin', methods=['GET'])
-def get_requests_admin():
-    conn = sqlite3.connect('src/database/DB_notebooks.db')
-    cursor = conn.cursor()
 
-    query = "SELECT * FROM AlunoNotebook WHERE request = 1 AND DataDevolucao IS NULL"
-    cursor.execute(query)
-
-    requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
-    
-    conn.close()
-
-    return jsonify(requests)
 
 #aba pedidos
 @app.route('/get_historico_admin', methods=['GET'])
 def get_historico_admin():
     conn = sqlite3.connect('src/database/DB_notebooks.db')
     cursor = conn.cursor()
-
-    query = "SELECT * FROM AlunoNotebook WHERE request = 0 AND DataDevolucao IS NOT NULL"
+    query = """
+    SELECT AlunoNotebook.idAlunoNotebook, Aluno.nome AS aluno, AlunoNotebook.idNotebook, AlunoNotebook.bloco, AlunoNotebook.dataRetirada, AlunoNotebook.dataDevolucao, AlunoNotebook.request
+    FROM AlunoNotebook
+    INNER JOIN Aluno ON AlunoNotebook.ra = Aluno.ra
+    WHERE AlunoNotebook.request = 0 AND AlunoNotebook.datadevolucao IS NOT NULL
+    """
     cursor.execute(query)
     requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
     print(requests)
@@ -183,6 +214,24 @@ def get_historico_admin():
 
     return jsonify(requests)
 
+#aba pedidos
+@app.route('/get_requests_admin', methods=['GET'])
+def get_requests_admin():
+    conn = sqlite3.connect('src/database/DB_notebooks.db')
+    cursor = conn.cursor()
+    query = """
+    SELECT AlunoNotebook.idAlunoNotebook, Aluno.nome AS aluno, AlunoNotebook.idNotebook, AlunoNotebook.bloco, AlunoNotebook.dataRetirada, AlunoNotebook.dataDevolucao, AlunoNotebook.request
+    FROM AlunoNotebook
+    INNER JOIN Aluno ON AlunoNotebook.ra = Aluno.ra
+    WHERE AlunoNotebook.request = 1 AND AlunoNotebook.datadevolucao IS NULL
+    """
+    cursor.execute(query)
+
+    requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
+    
+    conn.close()
+
+    return jsonify(requests)
 #inserir info no BD com data
 @app.route('/update_request', methods=['POST'])
 def update_request():
@@ -223,4 +272,4 @@ def update_request():
     return 'Request updated successfully'
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port='8000', threaded=True, debug=True)
+    app.run(host='127.0.0.1', port='8000', threaded=True)

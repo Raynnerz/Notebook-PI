@@ -90,6 +90,13 @@ textarea:focus{
     background-color:#009b3e;
 }
 
+.spinner-border {
+    color:#004587;
+    width: 50px;
+    height: 50px;
+    border-width: 4px;
+ }
+
 footer {
     margin-top: 19.9vh;
 }
