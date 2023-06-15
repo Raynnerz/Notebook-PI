@@ -178,47 +178,49 @@
       }
 
       function displayRequests(requests) {
-        var container = $("#requestsContainer");
-        container.empty();
+  var container = $("#requestsContainer");
+  container.empty();
 
-        if (requests && requests.length > 0) {
-          requests.forEach(function (request) {
-            var requestBox = $('<div class="request-box"></div>');
+  if (requests && requests.length > 0) {
+    requests.forEach(function (request) {
+      var requestBox = $('<div class="request-box"></div>');
 
-            var requestInfo = $(
-              '<div class="request-info">' +
-                'ID: <span class="id-text">' +
-                request.idAlunoNotebook +
-                "</span><br>Aluno: " +
-                request.aluno +
-                "<br>Código do Notebook: " +
-                request.idNotebook +
-                '<br><div class="action-buttons"><button class="approve-button" onclick="redirectTo(\'/telaListaAutentFuncionario_pedidos\')">Autenticar</button><button class="reject-button" onclick="redirectTo(\'/telaListaAutentFuncionario_pedidos\')">Recusar</button></div></div>'
-            );
-
-            // Create action buttons
-            var autenticarButton = requestInfo.find(".approve-button");
-            var recusarButton = requestInfo.find(".reject-button");
-
-            autenticarButton.on("click", function () {
-              updateRequest(request.idAlunoNotebook, "0");
-            });
-
-            recusarButton.on("click", function () {
-              updateRequest(request.idAlunoNotebook, "2");
-            });
-
-            requestBox.append(requestInfo);
-
-            container.append(requestBox);
-          });
-        } else {
-          var noRequestsElement = $("<div></div>");
+      var requestInfo = $(
+  '<div class="request-info">' +
+    (request.dataRetirada !== null ? "Pedido: Devolução" : "Pedido: Retirada") + '<br><br>' +
+    'ID: <span class="id-text">' +
+    request.idAlunoNotebook +
+    "</span><br>Aluno: " +
+    request.aluno +
+    "<br>Código do Notebook: " +
+    request.idNotebook +
+    '<br><div class="action-buttons"><button class="approve-button" onclick="redirectTo(\'/telaListaAutentFuncionario_pedidos\')">Autenticar</button><button class="reject-button" onclick="redirectTo(\'/telaListaAutentFuncionario_pedidos\')">Recusar</button></div></div>'
+);
 
 
-          container.append(noRequestsElement);
-        }
-      }
+      // Create action buttons
+      var autenticarButton = requestInfo.find(".approve-button");
+      var recusarButton = requestInfo.find(".reject-button");
+
+      autenticarButton.on("click", function () {
+        updateRequest(request.idAlunoNotebook, "0");
+      });
+
+      recusarButton.on("click", function () {
+        updateRequest(request.idAlunoNotebook, "2");
+      });
+
+      requestBox.append(requestInfo);
+
+      container.append(requestBox);
+    });
+  } else {
+    var noRequestsElement = $("<div></div>");
+
+    container.append(noRequestsElement);
+  }
+}
+
 
       function updateRequest(requestId, status, data_retirada, data_devolucao) {
         $.ajax({
