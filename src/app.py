@@ -208,7 +208,7 @@ def get_historico_admin():
     """
     cursor.execute(query)
     requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
-    print(requests)
+    
    
     conn.close()
 
@@ -219,8 +219,12 @@ def get_historico_admin():
 def get_requests_admin():
     conn = sqlite3.connect('src/database/DB_notebooks.db')
     cursor = conn.cursor()
-
-    query = "SELECT * FROM AlunoNotebook WHERE request = 1 AND DataDevolucao IS NULL"
+    query = """
+    SELECT AlunoNotebook.idAlunoNotebook, Aluno.nome AS aluno, AlunoNotebook.idNotebook, AlunoNotebook.bloco, AlunoNotebook.dataRetirada, AlunoNotebook.dataDevolucao, AlunoNotebook.request
+    FROM AlunoNotebook
+    INNER JOIN Aluno ON AlunoNotebook.ra = Aluno.ra
+    WHERE AlunoNotebook.request = 1 AND AlunoNotebook.datadevolucao IS NULL
+    """
     cursor.execute(query)
 
     requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
