@@ -126,7 +126,7 @@ def login():
             return redirect(url_for('telaListaAutentFuncionario_pedidos'))
 
         conn.close()
-        error = 'Usuário e/ou senha inválido(s)'
+        error = 'Usuário e/ou fhistosenha inválido(s)'
         return render_template('tela_login.html', error=error)
 
     else:
@@ -208,7 +208,7 @@ def get_historico_admin():
     """
     cursor.execute(query)
     requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
-    
+    print(requests)
    
     conn.close()
 

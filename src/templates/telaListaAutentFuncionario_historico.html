@@ -12,15 +12,15 @@
     <link rel="stylesheet" href="/static/css/estilos1.css">
 
     <style>
-        .title {
-            font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 36px;
-            padding: 10px;
-            width: 33%;
-            margin-bottom: 34px;
-            margin-left: 34;
-        }
+      .title{
+        font-weight: bold;
+        margin-bottom: 5px;
+        font-size: 36px; 
+        padding: 10px; 
+        width: 33%;
+        margin-bottom: 34px;
+        margin-left: 34;        
+    }
 
         .request-info {
             font-weight: bold;
@@ -135,6 +135,15 @@
             });
         }
 
+$(document).ready(function () {
+    fetchHistorico(); // Fetch the initial historico data
+});
+
+function redirectTo(url) {
+    window.location.href = url;
+}
+
+
         function fetchApprovedRequests() {
             $.ajax({
                 url: '/get_pendencias',
@@ -227,8 +236,7 @@
     <section class="container-fluid pt-3 pb-2 text-center">
         <hr>
         <span class="text-muted"
-            >Universidade Presbiteriana Mackenzie - CCSA - 2023<br>
-            Desenvolvido por Grupo 7</span
+            ></span
         >
     </section>
 </footer>
