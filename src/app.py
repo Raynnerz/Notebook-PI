@@ -176,20 +176,43 @@ def aluno_notebook():
 #aba Pendências
 @app.route('/get_pendencias', methods=['GET'])
 def get_pendencias():
-   
     conn = sqlite3.connect('src/database/DB_notebooks.db')
     cursor = conn.cursor()
-    
-    query = "SELECT * FROM AlunoNotebook WHERE request = 0 AND DataDevolucao IS NULL"
-    print(query)
+
+    query = """
+    SELECT AlunoNotebook.idAlunoNotebook, Aluno.nome AS aluno, AlunoNotebook.idNotebook, AlunoNotebook.bloco, AlunoNotebook.dataRetirada, AlunoNotebook.dataDevolucao, AlunoNotebook.request
+    FROM AlunoNotebook
+    INNER JOIN Aluno ON AlunoNotebook.ra = Aluno.ra
+    WHERE AlunoNotebook.request = 0 AND AlunoNotebook.datadevolucao IS NULL
+    """
     cursor.execute(query)
-    print(cursor.description
-          )
+
     pending_requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
 
     conn.close()
 
     return jsonify(pending_requests)
+
+
+
+#aba pedidos
+@app.route('/get_historico_admin', methods=['GET'])
+def get_historico_admin():
+    conn = sqlite3.connect('src/database/DB_notebooks.db')
+    cursor = conn.cursor()
+    query = """
+    SELECT AlunoNotebook.idAlunoNotebook, Aluno.nome AS aluno, AlunoNotebook.idNotebook, AlunoNotebook.bloco, AlunoNotebook.dataRetirada, AlunoNotebook.dataDevolucao, AlunoNotebook.request
+    FROM AlunoNotebook
+    INNER JOIN Aluno ON AlunoNotebook.ra = Aluno.ra
+    WHERE AlunoNotebook.request = 0 AND AlunoNotebook.datadevolucao IS NOT NULL
+    """
+    cursor.execute(query)
+    requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
+    print(requests)
+   
+    conn.close()
+
+    return jsonify(requests)
 
 #aba pedidos
 @app.route('/get_requests_admin', methods=['GET'])
@@ -205,22 +228,6 @@ def get_requests_admin():
     conn.close()
 
     return jsonify(requests)
-
-#aba pedidos
-@app.route('/get_historico_admin', methods=['GET'])
-def get_historico_admin():
-    conn = sqlite3.connect('src/database/DB_notebooks.db')
-    cursor = conn.cursor()
-
-    query = "SELECT * FROM AlunoNotebook WHERE request = 0 AND DataDevolucao IS NOT NULL"
-    cursor.execute(query)
-    requests = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
-    print(requests)
-   
-    conn.close()
-
-    return jsonify(requests)
-
 #inserir info no BD com data
 @app.route('/update_request', methods=['POST'])
 def update_request():
