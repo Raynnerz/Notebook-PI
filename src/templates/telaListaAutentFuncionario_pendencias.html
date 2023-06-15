@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -10,99 +11,99 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/estilos1.css">
 
-
     <style>
-    .title{
-        font-weight: bold;
-        margin-bottom: 5px;
-        font-size: 36px; 
-        padding: 10px; 
-        width: 33%;
-        margin-bottom: 34px;
-        margin-left: 34;        
-    }
-    .request-info {
-    font-weight: bold;
-    margin-bottom: 5px;
-    border: 1px solid blueviolet;
-    border-radius: 10px;
-    font-size: 24px;
-    padding: 10px;
-    margin-bottom: 34px;
-    margin-left: 34px;
-    width: 33%;
-}
+        .title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 36px;
+            padding: 10px;
+            width: 33%;
+            margin-bottom: 34px;
+            margin-left: 34;
+        }
 
-@media (max-width: 767px) { /* For mobile devices */
-    .request-info {
-        width: 90%;
-        margin-left: 5%;
-    }
-}
+        .request-info {
+            font-weight: bold;
+            margin-bottom: 5px;
+            border: 1px solid blueviolet;
+            border-radius: 10px;
+            font-size: 24px;
+            padding: 10px;
+            margin-bottom: 34px;
+            margin-left: 34px;
+            width: 33%;
+        }
 
-@media (min-width: 768px) and (max-width: 1023px) { /* For tablets */
-    .request-info {
-        width: 90%;
-        margin-left: 5%;
-    }
-}
-#left-button{
-    margin-left: 34px;
-    }
-.three-buttons {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 5px;
-  background-color: #4CAF50;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  margin-bottom: 16px;
-}
+        @media (max-width: 767px) {
+            /* For mobile devices */
+            .request-info {
+                width: 90%;
+                margin-left: 5%;
+            }
+        }
 
+        @media (min-width: 768px) and (max-width: 1023px) {
+            /* For tablets */
+            .request-info {
+                width: 90%;
+                margin-left: 5%;
+            }
+        }
 
-.three-buttons:hover {
-  background-color: #45a049;
-}
+        #left-button {
+            margin-left: 34px;
+        }
 
-.three-buttons:active {
-  background-color: #3e8e41;
-}
+        .three-buttons {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 80px;
+            background-color: #00DC58;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 16px;
+        }
 
-.three-buttons:focus {
-  outline: none;
-}
+        .three-buttons:hover {
+            background-color: #45a049;
+        }
 
+        .three-buttons:active {
+            background-color: #3e8e41;
+        }
 
+        .three-buttons:focus {
+            outline: none;
+        }
 
-        
         .action-buttons {
             margin-top: 10px;
-            
         }
-        
+
         .approve-button,
         .reject-button {
-            background-color: #4CAF50;
+            background-color: #00DC58;
             color: white;
             border: none;
             padding: 5px 10px;
             text-align: center;
+            border-radius: 28px;
             text-decoration: none;
             display: inline-block;
             font-size: 12px;
             cursor: pointer;
             margin-right: 5px;
         }
-        
+
         .reject-button {
-            background-color: #F44336;
+            background-color: #dc0000;
         }
-        
+
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -111,10 +112,10 @@
                 url: '/get_requests_admin',
                 method: 'GET',
                 dataType: 'json',
-                success: function(response) {
+                success: function (response) {
                     displayRequests(response);
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.log('Error:', error);
                 }
             });
@@ -125,10 +126,10 @@
                 url: '/get_historico_admin',
                 method: 'GET',
                 dataType: 'json',
-                success: function(response) {
+                success: function (response) {
                     displayRequests(response);
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.log('Error:', error);
                 }
             });
@@ -139,16 +140,15 @@
                 url: '/get_pendencias',
                 method: 'GET',
                 dataType: 'json',
-                success: function(response) {
+                success: function (response) {
                     displayRequests(response);
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.log('Error:', error);
                 }
             });
         }
-
-      function displayRequests(requests) {
+        function displayRequests(requests) {
   var container = $('#requestsContainer');
   container.empty();
 
@@ -157,17 +157,14 @@
       var requestBox = $('<div class="request-box"></div>');
 
       var requestInfo = $('<div class="request-info">' +
-    'ID: <span class="id-text">' + request.idAlunoNotebook + '</span><br>Aluno: ' + request.ra + '<br>Código do Notebook: ' + request.idNotebook +
-    '</div>');
-
-
+        'ID: <span class="id-text">' + request.idAlunoNotebook + '</span><br>Aluno: ' + request.aluno + '<br>Código do Notebook: ' + request.idNotebook +
+        '</div>');
 
       requestBox.append(requestInfo);
       container.append(requestBox);
     });
   } else {
     var noRequestsElement = $('<div></div>');
-
     container.append(noRequestsElement);
   }
 }
@@ -180,102 +177,71 @@
                     requestId: requestId,
                     status: status
                 },
-                success: function(response) {
+                success: function (response) {
                     console.log('Request updated successfully');
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.log('Error:', error);
                 }
             });
         }
     </script>
 </head>
+<body>
 <section class="amaua">
     <nav class="container-fluid">
         <div class="row">
             <div class=" text-white p-3 roboto tamanho14 p-4">
                 <div class="d-flex px-4 amaua">
                     <div style="order: 1;" class="px-2"><img src="/static/images/comp.png" alt="" width="60px"></div>
-                    <div style="order: 2;"class="px-3">Mauá Notebooks</div>
+                    <div style="order: 2;" class="px-3">Mauá Notebooks</div>
                 </div>
             </div>
         </div>
     </nav>
 </section>
 
-    
+<h1 class="title">Pendências</h1>
 
-    <h1 class="title">Pendências</h1>
-
-    <div
+<div
     class="three-buttons" id="left-button"
     onclick="redirectTo('/telaListaAutentFuncionario_pendencias');"
-  >
-    Pendncias
-  </div>
-  <div
+>
+    Pendências
+</div>
+<div
     class="three-buttons"
     onclick="redirectTo('/telaListaAutentFuncionario_pedidos');"
-  >
+>
     Pedidos
-  </div>
-  <div
+</div>
+<div
     class="three-buttons"
     onclick="redirectTo('/telaListaAutentFuncionario_historico');"
-  >
+>
     Histórico
-  </div>
-    <div id="requestsContainer"></div>
-    
+</div>
+<div id="requestsContainer"></div>
 
-    <footer class="flex-bottom fixed-bottom mt-5 pt-5">
-        <section class="container-fluid p-0">
-            <div class="amaua">
-                <div class="d-flex justify-content-end">
-                    <div class="m-2"><img src="/static/images/imt-logo.png" alt="" width="60px"></div>
-                </div>
-            </div>
-        </section>
-    </footer>
+<footer class="flex-bottom fixed-bottom mt-5 pt-5">
+    <section class="container-fluid pt-3 pb-2 text-center">
+        <hr>
+        <span class="text-muted"
+            >Universidade Presbiteriana Mackenzie - CCSA - 2023<br>
+            Desenvolvido por Grupo 7</span
+        >
+    </section>
+</footer>
 
-    <script>
-        $(document).ready(function() {
-            // Load initial data
-            fetchRequests();
-        });
+<script>
+    $(document).ready(function () {
+        fetchApprovedRequests();
+    });
 
-        function redirectTo(url) {
-            setTimeout(function() {
-                window.location.href = url;
-            }, 100);
-        }
+    function redirectTo(url) {
+        window.location.href = url;
+    }
+</script>
 
-        $(window).on('load', function() {
-            var currentUrl = window.location.pathname;
-            
-            if (currentUrl === '/telaListaAutentFuncionario_pendencias') {
-                setTimeout(function() {
-                    fetchApprovedRequests();
-                }, 100);
-            } else if (currentUrl === '/telaListaAutentFuncionario_pedidos') {
-                setTimeout(function() {
-                    fetchRequests();
-                }, 100);
-            } else if (currentUrl === '/telaListaAutentFuncionario_historico') {
-                setTimeout(function() {
-                    fetchHistorico();
-                }, 100);
-            }
-        });
-
-
-
-        
-            $(document).ready(function() {
-                // Load initial data
-                fetchRequests();
-            });
-    
-    </script>
 </body>
 </html>
