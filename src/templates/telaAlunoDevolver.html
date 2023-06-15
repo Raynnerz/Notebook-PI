@@ -11,7 +11,8 @@
                     url: "/update_requests_devolver",
 
                     success: function () {
-                        alert("Attribute changed!");
+                        alert("Pedido de devolução feito! Voltando à tela de login...");
+                        window.location.href = "/login"; 
                     }
                 });
             });
